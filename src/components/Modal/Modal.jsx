@@ -8,7 +8,7 @@ import { cn } from '../../utils/utils'
 import styles from './Modal.module.scss'
 
 const Modal = ({ isOpen, onClose, onSubmit }) => {
-  const [taskText, setTaskText] = useState('')
+  const [inputValue, setInputValue] = useState('')
   const [isRendered, setIsRendered] = useState(false)
   const [isVisible, setIsVisible] = useState(false)
 
@@ -24,9 +24,8 @@ const Modal = ({ isOpen, onClose, onSubmit }) => {
   }, [isOpen, isRendered])
 
   const handleApply = () => {
-    onSubmit(taskText)
-    setTaskText('')
-    onClose()
+    onSubmit(inputValue)
+    setInputValue('')
   }
 
   if (!isRendered) return null
@@ -48,9 +47,9 @@ const Modal = ({ isOpen, onClose, onSubmit }) => {
           <h2 className={styles.modalTitle}>New Task</h2>
           <div className={styles.modalInputWrapper}>
             <Input
-              value={taskText}
+              value={inputValue}
               name="newTask"
-              onChange={setTaskText}
+              onChange={setInputValue}
               placeholder="Input your task..."
               showSearchIcon={false}
             />

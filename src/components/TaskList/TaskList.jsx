@@ -2,7 +2,7 @@ import TaskItem from '../TaskItem/TaskItem'
 
 import styles from './TaskList.module.scss'
 
-const TaskList = ({ tasks, onToggleTask }) => {
+const TaskList = ({ tasks, onToggleTask, onDeleteTask }) => {
   return (
     <div className={styles.taskListWrapper}>
       <ul className={styles.taskList}>
@@ -11,6 +11,7 @@ const TaskList = ({ tasks, onToggleTask }) => {
             key={task.id}
             task={task}
             onToggleTask={onToggleTask}
+            onDeleteTask={onDeleteTask}
           />
         ))}
       </ul>
