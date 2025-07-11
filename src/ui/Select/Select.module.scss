@@ -25,11 +25,11 @@
     background-color: var(--color-accent-dark);
   }
 
-  svg {
+  .dropdownIcon {
     transition: transform var(--transition);
   }
 
-  &.open svg {
+  &.open .dropdownIcon {
     transform: rotate(180deg);
   }
 

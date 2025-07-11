@@ -6,19 +6,23 @@ import { cn } from '../../utils/utils'
 
 import styles from './TaskItem.module.scss'
 
-const TaskItem = ({ task }) => {
+const TaskItem = ({ task, onToggleTask }) => {
   return (
     <li className={styles.taskItem}>
-      <label className={styles.taskContent}>
+      <label className={styles.taskLabel}>
         <input
           className={cn(styles.checkbox, 'visually-hidden')}
           type="checkbox"
           name="checkbox"
+          checked={task.completed}
+          onChange={() => onToggleTask(task.id)}
         />
-        <span className={styles.customCheckbox}>
+        <div className={cn(styles.customCheckbox, task.completed && styles.checkedCheckbox)}>
           <CheckmarkIcon className={styles.checkmarkIcon} />
-        </span>
-        <span className={styles.taskText}>{task.text}</span>
+        </div>
+        <div className={cn(styles.taskText, task.completed && styles.completed)}>
+          {task.text}
+        </div>
       </label>
 
       <div className={styles.taskControls}>

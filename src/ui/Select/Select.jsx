@@ -36,7 +36,7 @@ const Select = ({ options, selected, onChange }) => {
         onClick={toggleDropdown}
       >
         {selected}
-        <DropdownIcon />
+        <DropdownIcon className={styles.dropdownIcon} />
       </button>
 
       {isOpen && (

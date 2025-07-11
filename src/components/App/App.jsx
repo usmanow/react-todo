@@ -38,9 +38,11 @@ const App = () => {
     setTasks(prevTasks => [...prevTasks, newTask])
   }
 
-/*   const toggleTaskCompleted = (id) => {
-
-  } */
+  const toggleTaskCompleted = (id) => {
+    setTasks(prevTasks => prevTasks.map(task =>
+      task.id === id ? { ...task, completed: !task.completed } : task
+    ))
+  }
 
   return (
     <div className={styles.container}>
@@ -55,6 +57,7 @@ const App = () => {
       <main className={styles.main}>
         <TaskList
           tasks={tasks}
+          onToggleTask={toggleTaskCompleted}
         />
       </main>
 

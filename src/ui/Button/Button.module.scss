@@ -2,7 +2,6 @@
   width: 97px;
   height: 40px;
   font-size: 18px;
-  font-weight: 500;
   color: var(--color-light-theme);
   text-transform: uppercase;
   background-color: var(--color-accent);
@@ -18,14 +17,14 @@
     background-color: var(--color-light-theme);
     border: var(--border);
   }
-}
 
-.buttonCancel {
-  color: var(--color-accent);
-  background-color: var(--color-light-theme);
+  &.buttonCancel {
+    color: var(--color-accent);
+    background-color: var(--color-light-theme);
 
-  &:hover {
-    color: var(--color-light-theme);
-    background-color: var(--color-accent);
+    &:hover {
+      color: var(--color-light-theme);
+      background-color: var(--color-accent);
+    }
   }
 }
