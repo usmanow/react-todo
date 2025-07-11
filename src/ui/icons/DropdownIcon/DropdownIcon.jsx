@@ -1,9 +1,10 @@
+import { cn } from '../../../utils/utils'
 import styles from './DropdownIcon.module.scss'
 
-const DropdownIcon =() => {
+const DropdownIcon = ({ className }) => {
   return (
     <svg
-      className={styles.dropdownIcon}
+      className={cn(styles.dropdownIcon, className)}
       viewBox="0 0 8 5" fill="none"
     >
       <path

@@ -12,28 +12,52 @@
   }
 }
 
-.taskContent {
+.taskLabel {
   display: flex;
   align-items: center;
   column-gap: 20px;
+  min-width: 0;
 }
 
 .customCheckbox {
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-shrink: 0;
   width: 26px;
   height: 26px;
   border: var(--border);
   border-radius: 2px;
   cursor: pointer;
+  background-color: transparent;
+  transition: background-color var(--transition);
+
+  &.checkedCheckbox {
+    background-color: var(--color-accent);
+
+    .checkmarkIcon {
+      opacity: 1;
+    }
+  }
+}
+
+.checkmarkIcon {
+  opacity: 0;
+  transition: opacity var(--transition);
 }
 
 .taskText {
+  min-width: 0;
+  font-family: 'Inter';
+  font-weight: 400;
   overflow-wrap: break-word;
   cursor: pointer;
   user-select: none;
+
+  &.completed {
+    text-decoration: line-through;
+    text-decoration-thickness: 2px;
+    color: var(--color-strikethrough);
+  }
 }
 
 .taskControls {
