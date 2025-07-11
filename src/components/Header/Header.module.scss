@@ -1,0 +1,26 @@
+.header {
+  display: flex;
+  flex-direction: column;
+  row-gap: 25px;
+  padding-top: 40px;
+}
+
+.headerInputWrapper {
+  max-width: 595px;
+  width: 100%;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  column-gap: 16px;
+}
+
+.title {
+  margin: 0;
+  font-size: 26px;
+  text-align: center;
+  text-transform: uppercase;
+  color: var(--color-dark-theme);
+}

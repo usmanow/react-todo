@@ -1,0 +1,10 @@
+.deleteIcon {
+  width: 20px;
+  height: 20px;
+  color: var(--color-gray);
+  transition: var(--transition);
+
+  &:hover {
+    color: var(--color-accent);
+  }
+}

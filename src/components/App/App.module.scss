@@ -1,0 +1,29 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  max-width: 960px;
+  margin-inline: auto;
+  padding-inline: 15px;
+}
+
+.main {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  max-width: 680px;
+  width: 100%;
+  padding-block: 30px;
+  margin-inline: auto;
+  overflow: hidden;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 680px;
+  width: 100%;
+  margin-inline: auto;
+  padding-bottom: 40px;
+}

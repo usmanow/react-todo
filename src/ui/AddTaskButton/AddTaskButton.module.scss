@@ -1,0 +1,36 @@
+.addTaskButton {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  box-shadow: var(--shadow);
+  background-color: var(--color-accent);
+  transition:
+    border-color var(--transition),
+    background-color var(--transition);
+
+  &:hover {
+    border-color: var(--color-accent);
+    background-color: var(--color-accent-dark);
+  }
+
+  &::before,
+  &::after {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    content: '';
+    width: 24px;
+    height: 3px;
+    background-color: var(--color-light-theme);
+  }
+
+  &::before {
+    transform: translate(-50%, -50%);
+  }
+
+  &::after {
+    transform: translate(-50%, -50%) rotate(90deg);
+  }
+}

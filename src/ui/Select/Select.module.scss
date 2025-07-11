@@ -1,0 +1,75 @@
+.selectWrapper {
+  position: relative;
+}
+
+.selectButton {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 160px;
+  height: 40px;
+  padding: 10px;
+  font-size: 18px;
+  text-transform: uppercase;
+  color: var(--color-light);
+  border: 2px solid transparent;
+  background-color: var(--color-accent);
+  border-radius: var(--border-radius);
+  transition:
+    box-shadow var(--transition),
+    border-color var(--transition),
+    background-color var(--transition);
+
+  &.open {
+    border-color: var(--color-accent);
+    background-color: var(--color-accent-dark);
+  }
+
+  svg {
+    transition: transform var(--transition);
+  }
+
+  &.open svg {
+    transform: rotate(180deg);
+  }
+
+  &:hover {
+    box-shadow: var(--shadow);
+  }
+}
+
+.optionList {
+  position: absolute;
+  top: calc(100% + 4px);
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin: 0;
+  padding: 6px 0;
+  font-size: 18px;
+  font-weight: 400;
+  color: var(--color-accent);
+  border: var(--border);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  list-style: none;
+}
+
+.optionItem {
+  padding: 6px 6px;
+  background-color: transparent;
+  transition: background-color var(--transition);
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--color-accent-hover);
+  }
+
+  &.selected {
+    background-color: var(--color-accent-selected);
+
+    &:hover {
+      background-color: var(--color-accent-hover);
+    }
+  }
+}

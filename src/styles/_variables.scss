@@ -1,0 +1,22 @@
+:root {
+  --color-light: #FFFFFF;
+  --color-light-theme: #F7F7F7;
+  --color-dark-theme: #252525;
+  --color-accent: #6C63FF;
+  --color-accent-dark: #534CC2;
+  --color-accent-light: #C3C1E5;
+  --color-accent-rgb: 108, 99, 255;
+  --color-accent-hover: rgba(var(--color-accent-rgb), 0.1);
+  --color-accent-selected: rgba(var(--color-accent-rgb), 0.4);
+  --color-red: #E50000;
+  --color-gray: #CDCDCD;
+
+  --font-family-base: 'Kanit';
+
+  --border: 1px solid var(--color-accent);
+  --border-radius: 5px;
+
+  --shadow: 0 0 4px var(--color-accent);
+
+  --transition: 0.3s ease;
+}

@@ -1,0 +1,51 @@
+.taskItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  column-gap: 25px;
+  padding: 15px 10px;
+  font-size: 18px;
+  border-bottom: var(--border);
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.taskContent {
+  display: flex;
+  align-items: center;
+  column-gap: 20px;
+}
+
+.customCheckbox {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  border: var(--border);
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+.taskText {
+  overflow-wrap: break-word;
+  cursor: pointer;
+  user-select: none;
+}
+
+.taskControls {
+  display: flex;
+  align-items: center;
+  column-gap: 10px;
+}
+
+.editButton, .deleteButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+}
