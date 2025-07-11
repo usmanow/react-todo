@@ -6,7 +6,7 @@ import { cn } from '../../utils/utils'
 
 import styles from './TaskItem.module.scss'
 
-const TaskItem = ({ task, onToggleTask }) => {
+const TaskItem = ({ task, onToggleTask, onDeleteTask }) => {
   return (
     <li className={styles.taskItem}>
       <label className={styles.taskLabel}>
@@ -36,6 +36,7 @@ const TaskItem = ({ task, onToggleTask }) => {
         <button
           className={styles.deleteButton}
           type="button"
+          onClick={() => onDeleteTask(task.id)}
         >
           <DeleteIcon />
         </button>

@@ -28,10 +28,13 @@ const App = () => {
 
   const handleFilterChange = (newFilter) => setFilterValue(newFilter)
 
-  const addTask = (text) => {
+  const addTask = (inputValue) => {
+    const taskText = inputValue.trim()
+    if (taskText === '') return
+
     const newTask = {
       id: uuidv4(),
-      text,
+      text: taskText,
       completed: false
     }
 
@@ -43,6 +46,8 @@ const App = () => {
       task.id === id ? { ...task, completed: !task.completed } : task
     ))
   }
+
+  const deleteTask = (id) => setTasks(prevTask => prevTask.filter(task => task.id !== id))
 
   return (
     <div className={styles.container}>
@@ -58,6 +63,7 @@ const App = () => {
         <TaskList
           tasks={tasks}
           onToggleTask={toggleTaskCompleted}
+          onDeleteTask={deleteTask}
         />
       </main>
 
