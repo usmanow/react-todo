@@ -28,13 +28,10 @@ const App = () => {
 
   const handleFilterChange = (newFilter) => setFilterValue(newFilter)
 
-  const addTask = (inputValue) => {
-    const taskText = inputValue.trim()
-    if (taskText === '') return
-
+  const addTask = (text) => {
     const newTask = {
       id: uuidv4(),
-      text: taskText,
+      text,
       completed: false
     }
 

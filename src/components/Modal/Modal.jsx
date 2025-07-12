@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import Input from '../../ui/Input/Input'
 import Button from '../../ui/Button/Button'
@@ -11,6 +11,7 @@ const Modal = ({ isOpen, onClose, onSubmit }) => {
   const [inputValue, setInputValue] = useState('')
   const [isRendered, setIsRendered] = useState(false)
   const [isVisible, setIsVisible] = useState(false)
+  const inputRef = useRef(null)
 
   useEffect(() => {
     if (isOpen) {
@@ -24,8 +25,17 @@ const Modal = ({ isOpen, onClose, onSubmit }) => {
   }, [isOpen, isRendered])
 
   const handleApply = () => {
-    onSubmit(inputValue)
+    const taskText = inputValue.trim()
+    if (taskText === '') return
+
+    onSubmit(taskText)
     setInputValue('')
+    inputRef.current?.focus()
+  }
+
+  const handleClose = () => {
+    setInputValue('')
+    onClose()
   }
 
   if (!isRendered) return null
@@ -33,7 +43,7 @@ const Modal = ({ isOpen, onClose, onSubmit }) => {
   return (
     <div
       className={cn(styles.overlay, isVisible && styles.visible)}
-      onClick={onClose}
+      onClick={handleClose}
     >
       <form
         className={cn(styles.modal, isVisible && styles.visible)}
@@ -47,6 +57,7 @@ const Modal = ({ isOpen, onClose, onSubmit }) => {
           <h2 className={styles.modalTitle}>New Task</h2>
           <div className={styles.modalInputWrapper}>
             <Input
+              ref={inputRef}
               value={inputValue}
               name="newTask"
               onChange={setInputValue}
@@ -58,7 +69,7 @@ const Modal = ({ isOpen, onClose, onSubmit }) => {
         <div className={styles.modalFooter}>
           <Button
             variant="cancel"
-            onClick={onClose}
+            onClick={handleClose}
             type="button"
           >
             Cancel

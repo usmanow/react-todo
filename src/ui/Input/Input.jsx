@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { forwardRef, useImperativeHandle, useRef } from 'react'
 
 import SearchIcon from '../icons/SearchIcon/SearchIcon'
 
@@ -6,8 +6,12 @@ import { cn } from '../../utils/utils'
 
 import styles from './Input.module.scss'
 
-const Input = ({ name, value, placeholder, onChange, showSearchIcon }) => {
+const Input = ({ name, value, placeholder, onChange, showSearchIcon }, ref) => {
   const inputRef = useRef(null)
+
+  useImperativeHandle(ref, () => ({
+    focus: () => inputRef.current.focus()
+  }))
 
   const handleClear = () => {
     onChange('')
@@ -40,4 +44,4 @@ const Input = ({ name, value, placeholder, onChange, showSearchIcon }) => {
   )
 }
 
-export default Input
+export default forwardRef(Input)
