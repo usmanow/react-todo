@@ -50,15 +50,18 @@
   font-weight: 400;
   color: var(--color-accent);
   border: var(--border);
+  background-color: var(--color-light-theme);
   border-radius: var(--border-radius);
   box-shadow: var(--shadow);
   list-style: none;
+  z-index: 2;
 }
 
 .optionItem {
   padding: 6px 6px;
   background-color: transparent;
   transition: background-color var(--transition);
+  text-transform: capitalize;
   cursor: pointer;
 
   &:hover {

@@ -1,14 +1,26 @@
 .taskItem {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
   column-gap: 25px;
   padding: 15px 10px;
   font-size: 18px;
-  border-bottom: var(--border);
+  z-index: 1;
 
-  &:last-child {
-    border-bottom: none;
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 1px;
+    background-color: var(--color-accent);
+  }
+
+  &:last-child::after {
+    content: none;
   }
 }
 
@@ -17,6 +29,7 @@
   align-items: center;
   column-gap: 20px;
   min-width: 0;
+  cursor: pointer;
 }
 
 .customCheckbox {
@@ -27,7 +40,6 @@
   height: 26px;
   border: var(--border);
   border-radius: 2px;
-  cursor: pointer;
   background-color: transparent;
   transition: background-color var(--transition);
 
@@ -50,7 +62,6 @@
   font-family: 'Inter';
   font-weight: 400;
   overflow-wrap: break-word;
-  cursor: pointer;
   user-select: none;
 
   &.completed {

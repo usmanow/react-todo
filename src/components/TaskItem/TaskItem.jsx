@@ -1,3 +1,6 @@
+// eslint-disable-next-line no-unused-vars
+import { motion } from 'framer-motion'
+
 import EditIcon from '../../ui/icons/EditIcon/EditIcon'
 import DeleteIcon from '../../ui/icons/DeleteIcon/DeleteIcon'
 import CheckmarkIcon from '../../ui/icons/CheckmarkIcon/CheckmarkIcon'
@@ -8,7 +11,14 @@ import styles from './TaskItem.module.scss'
 
 const TaskItem = ({ task, onToggleTask, onDeleteTask }) => {
   return (
-    <li className={styles.taskItem}>
+    <motion.li
+      layout
+      className={styles.taskItem}
+      initial={{ opacity: 0, scale: 0.95 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 0.95 }}
+      transition={{ duration: 0.2 }}
+    >
       <label className={styles.taskLabel}>
         <input
           className={cn(styles.checkbox, 'visually-hidden')}
@@ -41,7 +51,7 @@ const TaskItem = ({ task, onToggleTask, onDeleteTask }) => {
           <DeleteIcon />
         </button>
       </div>
-    </li>
+    </motion.li>
   )
 }
 
