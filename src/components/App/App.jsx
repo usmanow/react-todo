@@ -8,9 +8,9 @@ import AddTaskButton from '../../ui/AddTaskButton/AddTaskButton'
 import UndoButton from '../../ui/UndoButton/UndoButton'
 import TaskList from '../TaskList/TaskList'
 
-import styles from './App.module.scss'
+import { FILTERS, filterOptions } from '../../constants/constants'
 
-const filterOptions = ['All', 'Complete', 'Incomplete']
+import styles from './App.module.scss'
 
 const App = () => {
   const [searchValue, setSearchValue] = useState('')
@@ -44,7 +44,14 @@ const App = () => {
     ))
   }
 
-  const deleteTask = (id) => setTasks(prevTask => prevTask.filter(task => task.id !== id))
+  const deleteTask = (id) => setTasks(prevTasks => prevTasks.filter(task => task.id !== id))
+
+  const filteredTasks = tasks.filter(task => {
+    if (filterValue === FILTERS.COMPLETE) return task.completed
+    if (filterValue === FILTERS.INCOMPLETE) return !task.completed
+    return true
+  })
+
 
   return (
     <div className={styles.container}>
@@ -58,7 +65,8 @@ const App = () => {
 
       <main className={styles.main}>
         <TaskList
-          tasks={tasks}
+          tasks={filteredTasks}
+          filterValue={filterValue}
           onToggleTask={toggleTaskCompleted}
           onDeleteTask={deleteTask}
         />
