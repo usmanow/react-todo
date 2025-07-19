@@ -1,6 +1,8 @@
 // eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion'
 
+import { useEffect, useRef, useState } from 'react'
+
 import EditIcon from '../../ui/icons/EditIcon/EditIcon'
 import DeleteIcon from '../../ui/icons/DeleteIcon/DeleteIcon'
 import CheckmarkIcon from '../../ui/icons/CheckmarkIcon/CheckmarkIcon'
@@ -10,6 +12,23 @@ import { cn } from '../../utils/utils'
 import styles from './TaskItem.module.scss'
 
 const TaskItem = ({ task, onToggleTask, onDeleteTask }) => {
+  const [localCompleted, setIsLocalCompleted] = useState(task.completed)
+  const timeoutRef = useRef(null)
+
+  useEffect(() => {
+    setIsLocalCompleted(task.completed)
+  }, [task.completed])
+
+  useEffect(() => {
+    return () => clearTimeout(timeoutRef.current)
+  }, [])
+
+  const handleToggle = () => {
+    setIsLocalCompleted(prev => !prev)
+
+    timeoutRef.current = setTimeout(() => onToggleTask(task.id), 250)
+  }
+
   return (
     <motion.li
       layout
@@ -24,13 +43,13 @@ const TaskItem = ({ task, onToggleTask, onDeleteTask }) => {
           className={cn(styles.checkbox, 'visually-hidden')}
           type="checkbox"
           name="checkbox"
-          checked={task.completed}
-          onChange={() => onToggleTask(task.id)}
+          checked={localCompleted}
+          onChange={handleToggle}
         />
-        <div className={cn(styles.customCheckbox, task.completed && styles.checkedCheckbox)}>
+        <div className={cn(styles.customCheckbox, localCompleted && styles.checkedCheckbox)}>
           <CheckmarkIcon className={styles.checkmarkIcon} />
         </div>
-        <div className={cn(styles.taskText, task.completed && styles.completed)}>
+        <div className={cn(styles.taskText, localCompleted && styles.completed)}>
           {task.text}
         </div>
       </label>
