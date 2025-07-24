@@ -18,9 +18,13 @@ const Modal = ({ isOpen, onClose, onSubmit }) => {
   useEffect(() => {
     if (isOpen) {
       setIsRendered(true)
-      setTimeout(() => setIsVisible(true), 10)
+
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => setIsVisible(true))
+      })
     } else if (isRendered) {
       setIsVisible(false)
+
       const timer = setTimeout(() => setIsRendered(false), 300)
       return () => clearTimeout(timer)
     }
