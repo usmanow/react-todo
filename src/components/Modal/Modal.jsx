@@ -13,6 +13,8 @@ const Modal = ({ isOpen, onClose, onSubmit }) => {
   const [isVisible, setIsVisible] = useState(false)
   const inputRef = useRef(null)
 
+  const isInputEmpty = inputValue.trim() === ''
+
   useEffect(() => {
     if (isOpen) {
       setIsRendered(true)
@@ -24,10 +26,11 @@ const Modal = ({ isOpen, onClose, onSubmit }) => {
     }
   }, [isOpen, isRendered])
 
-  const handleApply = () => {
-    const taskText = inputValue.trim()
-    if (taskText === '') return
+  const handleApply = (e) => {
+    e.preventDefault()
 
+    const taskText = inputValue.trim()
+    if (!taskText) return
     onSubmit(taskText)
     setInputValue('')
     inputRef.current?.focus()
@@ -48,10 +51,7 @@ const Modal = ({ isOpen, onClose, onSubmit }) => {
       <form
         className={cn(styles.modal, isVisible && styles.visible)}
         onClick={(e) => e.stopPropagation(e)}
-        onSubmit={(e) => {
-          e.preventDefault()
-          handleApply()
-        }}
+        onSubmit={handleApply}
       >
         <div className={styles.modalHeader}>
           <h2 className={styles.modalTitle}>New Task</h2>
@@ -77,8 +77,8 @@ const Modal = ({ isOpen, onClose, onSubmit }) => {
 
           <Button
             variant="apply"
-            onClick={handleApply}
             type="submit"
+            disabled={isInputEmpty}
           >
             Apply
           </Button>

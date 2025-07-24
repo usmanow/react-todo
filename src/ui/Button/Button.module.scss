@@ -18,6 +18,18 @@
     border: var(--border);
   }
 
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+    pointer-events: auto;
+  }
+
+  &:disabled:hover {
+    color: var(--color-light-theme);
+    background-color: var(--color-accent);
+    border: var(--border);
+  }
+
   &.buttonCancel {
     color: var(--color-accent);
     background-color: var(--color-light-theme);
