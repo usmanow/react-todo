@@ -1,6 +1,7 @@
 import { v4 as uuidv4 } from 'uuid'
 
 import { useEffect, useState } from 'react'
+import { useDebounce } from '../../hooks/useDebounce'
 
 import Header from '../Header/Header'
 import Modal from '../Modal/Modal'
@@ -8,12 +9,15 @@ import AddTaskButton from '../../ui/AddTaskButton/AddTaskButton'
 import UndoButton from '../../ui/UndoButton/UndoButton'
 import TaskList from '../TaskList/TaskList'
 
-import { FILTERS, filterOptions } from '../../constants/constants'
+import { filterAndSearchTasks } from '../../utils/utils'
+import { filterOptions } from '../../constants/constants'
 
 import styles from './App.module.scss'
 
 const App = () => {
   const [searchValue, setSearchValue] = useState('')
+  const debouncedSearchValue = useDebounce(searchValue, 300)
+
   const [filterValue, setFilterValue] = useState(filterOptions[0])
   const [isModalOpen, setIsModalOpen] = useState(false)
 
@@ -35,23 +39,18 @@ const App = () => {
       completed: false
     }
 
-    setTasks(prevTasks => [...prevTasks, newTask])
+    setTasks((prevTasks) => [...prevTasks, newTask])
   }
 
   const toggleTaskCompleted = (id) => {
-    setTasks(prevTasks => prevTasks.map(task =>
+    setTasks((prevTasks) => prevTasks.map(task =>
       task.id === id ? { ...task, completed: !task.completed } : task
     ))
   }
 
-  const deleteTask = (id) => setTasks(prevTasks => prevTasks.filter(task => task.id !== id))
+  const deleteTask = (id) => setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id))
 
-  const filteredTasks = tasks.filter(task => {
-    if (filterValue === FILTERS.COMPLETE) return task.completed
-    if (filterValue === FILTERS.INCOMPLETE) return !task.completed
-    return true
-  })
-
+  const filteredTasks = filterAndSearchTasks(tasks, filterValue, debouncedSearchValue)
 
   return (
     <div className={styles.container}>
@@ -66,7 +65,6 @@ const App = () => {
       <main className={styles.main}>
         <TaskList
           tasks={filteredTasks}
-          filterValue={filterValue}
           onToggleTask={toggleTaskCompleted}
           onDeleteTask={deleteTask}
         />
