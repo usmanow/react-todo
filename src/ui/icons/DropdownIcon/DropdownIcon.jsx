@@ -5,7 +5,8 @@ const DropdownIcon = ({ className }) => {
   return (
     <svg
       className={cn(styles.dropdownIcon, className)}
-      viewBox="0 0 8 5" fill="none"
+      viewBox="0 0 8 5"
+      fill="none"
     >
       <path
         d="M4 4L1 1"

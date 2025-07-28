@@ -1,24 +1,44 @@
-import { AnimatePresence } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
 
 import TaskItem from '../TaskItem/TaskItem'
+import EmptyState from '../EmptyState/EmptyState'
 
 import styles from './TaskList.module.scss'
 
 const TaskList = ({ tasks, onToggleTask, onDeleteTask }) => {
+  const isEmpty = tasks.length === 0
+
+  const motionProps = {
+    initial: { opacity: 1 },
+    animate: { opacity: 1 },
+    exit: { opacity: 0 },
+    transition: { duration: 0.2 }
+  }
+
   return (
     <div className={styles.taskListWrapper}>
-      <ul className={styles.taskList}>
-        <AnimatePresence mode="popLayout">
-          {tasks.map(task => (
-            <TaskItem
-              key={task.id}
-              task={task}
-              onToggleTask={onToggleTask}
-              onDeleteTask={onDeleteTask}
-            />
-          ))}
-        </AnimatePresence>
-      </ul>
+      <AnimatePresence mode="wait">
+        {isEmpty ? (
+          <EmptyState key="empty" />
+        ) : (
+          <motion.ul
+            key="task-list"
+            className={styles.taskList}
+            {...motionProps}
+          >
+            <AnimatePresence mode="popLayout">
+              {tasks.map((task) => (
+                <TaskItem
+                  key={task.id}
+                  task={task}
+                  onToggleTask={onToggleTask}
+                  onDeleteTask={onDeleteTask}
+                />
+              ))}
+            </AnimatePresence>
+          </motion.ul>
+        )}
+      </AnimatePresence>
     </div>
   )
 }

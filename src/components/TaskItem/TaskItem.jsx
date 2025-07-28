@@ -1,4 +1,3 @@
-// eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion'
 
 import { useEffect, useRef, useState } from 'react'
@@ -24,20 +23,21 @@ const TaskItem = ({ task, onToggleTask, onDeleteTask }) => {
   }, [])
 
   const handleToggle = () => {
-    setIsLocalCompleted(prev => !prev)
+    setIsLocalCompleted((prev) => !prev)
 
     timeoutRef.current = setTimeout(() => onToggleTask(task.id), 250)
   }
 
+  const motionProps = {
+    layout: true,
+    initial: { opacity: 0, scale: 0.95 },
+    animate: { opacity: 1, scale: 1 },
+    exit: { opacity: 0, scale: 0.95 },
+    transition: { duration: 0.2 },
+  }
+
   return (
-    <motion.li
-      layout
-      className={styles.taskItem}
-      initial={{ opacity: 0, scale: 0.95 }}
-      animate={{ opacity: 1, scale: 1 }}
-      exit={{ opacity: 0, scale: 0.95 }}
-      transition={{ duration: 0.2 }}
-    >
+    <motion.li className={styles.taskItem} {...motionProps}>
       <label className={styles.taskLabel}>
         <input
           className={cn(styles.checkbox, 'visually-hidden')}
