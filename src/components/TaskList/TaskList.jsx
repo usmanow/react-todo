@@ -5,7 +5,7 @@ import EmptyState from '../EmptyState/EmptyState'
 
 import styles from './TaskList.module.scss'
 
-const TaskList = ({ tasks, onToggleTask, onDeleteTask }) => {
+const TaskList = ({ tasks, onToggleTask, onDeleteTask, onEditTask }) => {
   const isEmpty = tasks.length === 0
 
   const motionProps = {
@@ -33,6 +33,7 @@ const TaskList = ({ tasks, onToggleTask, onDeleteTask }) => {
                   task={task}
                   onToggleTask={onToggleTask}
                   onDeleteTask={onDeleteTask}
+                  onEditTask={onEditTask}
                 />
               ))}
             </AnimatePresence>
