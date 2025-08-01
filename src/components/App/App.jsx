@@ -52,6 +52,12 @@ const App = () => {
 
   const filteredTasks = filterAndSearchTasks(tasks, filterValue, debouncedSearchValue)
 
+  const handleEditTask = (id, newText) => {
+    setTasks((prevTasks) => prevTasks.map((task) =>
+      task.id === id ? { ...task, text: newText } : task
+    ))
+  }
+
   return (
     <div className={styles.container}>
       <Header
@@ -67,6 +73,7 @@ const App = () => {
           tasks={filteredTasks}
           onToggleTask={toggleTaskCompleted}
           onDeleteTask={deleteTask}
+          onEditTask={handleEditTask}
         />
       </main>
 
