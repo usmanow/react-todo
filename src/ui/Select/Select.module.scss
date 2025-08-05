@@ -20,22 +20,22 @@
     border-color var(--transition),
     background-color var(--transition);
 
-  &.open {
+  &--open {
     border-color: var(--color-accent);
     background-color: var(--color-accent-dark);
   }
 
-  .dropdownIcon {
-    transition: transform var(--transition);
-  }
-
-  &.open .dropdownIcon {
+  &--open .dropdownIcon {
     transform: rotate(180deg);
   }
 
   &:hover {
     box-shadow: var(--shadow);
   }
+}
+
+.dropdownIcon {
+  transition: transform var(--transition);
 }
 
 .optionList {
@@ -50,8 +50,8 @@
   font-weight: 400;
   color: var(--color-accent);
   border: var(--border);
-  background-color: var(--color-light-theme);
   border-radius: var(--border-radius);
+  background-color: var(--color-light-theme);
   box-shadow: var(--shadow);
   list-style: none;
   z-index: 2;

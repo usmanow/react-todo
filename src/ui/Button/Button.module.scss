@@ -2,9 +2,7 @@
   width: 97px;
   height: 40px;
   font-size: 18px;
-  color: var(--color-light-theme);
   text-transform: uppercase;
-  background-color: var(--color-accent);
   border-radius: var(--border-radius);
   border: var(--border);
   transition:
@@ -12,28 +10,26 @@
     background-color var(--transition),
     border var(--transition);
 
-  &:hover {
-    color: var(--color-accent);
-    background-color: var(--color-light-theme);
-    border: var(--border);
-  }
-
   &:disabled {
     cursor: not-allowed;
     opacity: 0.5;
   }
 
-  &:disabled:hover {
+  &--apply {
     color: var(--color-light-theme);
     background-color: var(--color-accent);
-    border: var(--border);
+
+    &:not(:disabled):hover {
+      color: var(--color-accent);
+      background-color: var(--color-light-theme);
+    }
   }
 
-  &.buttonCancel {
+  &--cancel {
     color: var(--color-accent);
     background-color: var(--color-light-theme);
 
-    &:hover {
+    &:not(:disabled):hover {
       color: var(--color-light-theme);
       background-color: var(--color-accent);
     }

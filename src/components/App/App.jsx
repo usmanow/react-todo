@@ -1,36 +1,61 @@
 import { v4 as uuidv4 } from 'uuid'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useDebounce } from '../../hooks/useDebounce'
 
 import Header from '../Header/Header'
 import Modal from '../Modal/Modal'
 import AddTaskButton from '../../ui/AddTaskButton/AddTaskButton'
-import UndoButton from '../../ui/UndoButton/UndoButton'
+import UndoButton from '../UndoButton/UndoButton'
 import TaskList from '../TaskList/TaskList'
 
 import { filterAndSearchTasks } from '../../utils/utils'
-import { filterOptions } from '../../constants/constants'
+import { filterOptions, UNDO_TIME } from '../../constants/constants'
 
 import styles from './App.module.scss'
 
 const App = () => {
+  const [tasks, setTasks] = useState(() => {
+    const storedTasks = localStorage.getItem('tasks')
+    return storedTasks ? JSON.parse(storedTasks) : []
+  })
+
+  const [deletedTask, setDeletedTask] = useState(null)
+  const [timeLeft, setTimeLeft] = useState(UNDO_TIME)
   const [searchValue, setSearchValue] = useState('')
   const debouncedSearchValue = useDebounce(searchValue, 300)
 
   const [filterValue, setFilterValue] = useState(filterOptions[0])
   const [isModalOpen, setIsModalOpen] = useState(false)
 
-  const [tasks, setTasks] = useState(() => {
-    const storedTasks = localStorage.getItem('tasks')
-    return storedTasks ? JSON.parse(storedTasks) : []
-  })
+  const undoTimeRef = useRef(null)
+  const showUndo = deletedTask !== null
 
   useEffect(() => {
     localStorage.setItem('tasks', JSON.stringify(tasks))
   }, [tasks])
 
-  const handleFilterChange = (newFilter) => setFilterValue(newFilter)
+  useEffect(() => {
+    if (!deletedTask) {
+      clearInterval(undoTimeRef.current)
+      setTimeLeft(UNDO_TIME)
+      return
+    }
+
+    setTimeLeft(UNDO_TIME)
+
+    undoTimeRef.current = setInterval(() => setTimeLeft((prev) => {
+      if (prev <= 1) {
+        clearInterval(undoTimeRef.current)
+        setDeletedTask(null)
+        return 0
+      }
+
+      return prev - 1
+    }), 1000)
+
+    return () => clearInterval(undoTimeRef.current)
+  }, [deletedTask])
 
   const addTask = (text) => {
     const newTask = {
@@ -42,21 +67,38 @@ const App = () => {
     setTasks((prevTasks) => [...prevTasks, newTask])
   }
 
+  const deleteTask = (id) => {
+    const taskToDelete = tasks.find((task) => task.id === id)
+    if (!taskToDelete) return
+
+    setDeletedTask(taskToDelete)
+    setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id))
+  }
+
+  const handleUndo = () => {
+    if (!deletedTask) return
+
+    setTasks((prevTasks) => [...prevTasks, deletedTask])
+    setDeletedTask(null)
+    setTimeLeft(UNDO_TIME)
+    clearInterval(undoTimeRef.current)
+  }
+
   const toggleTaskCompleted = (id) => {
     setTasks((prevTasks) => prevTasks.map((task) =>
       task.id === id ? { ...task, completed: !task.completed } : task
     ))
   }
 
-  const deleteTask = (id) => setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id))
-
-  const filteredTasks = filterAndSearchTasks(tasks, filterValue, debouncedSearchValue)
+  const handleFilterChange = (newFilter) => setFilterValue(newFilter)
 
   const handleEditTask = (id, newText) => {
     setTasks((prevTasks) => prevTasks.map((task) =>
       task.id === id ? { ...task, text: newText } : task
     ))
   }
+
+  const filteredTasks = filterAndSearchTasks(tasks, filterValue, debouncedSearchValue)
 
   return (
     <div className={styles.container}>
@@ -78,7 +120,12 @@ const App = () => {
       </main>
 
       <footer className={styles.footer}>
-        <UndoButton />
+        <UndoButton
+          show={showUndo}
+          onUndo={handleUndo}
+          timeLeft={timeLeft}
+          totalTime={UNDO_TIME}
+        />
         <AddTaskButton
           onClick={() => setIsModalOpen(true)}
         />

@@ -9,3 +9,5 @@ export const filterOptions = [
   FILTERS.COMPLETE,
   FILTERS.INCOMPLETE
 ]
+
+export const UNDO_TIME = 5
