@@ -1,0 +1,29 @@
+.timer {
+  width: 28px;
+  height: 28px;
+  color: var(--color-light-theme);
+
+  text {
+    font-size: 16px;
+    font-weight: 400;
+    fill: currentColor;
+  }
+}
+
+.animatedCircle {
+  stroke-dashoffset: 0;
+  stroke-dasharray: 75;
+  animation-name: countdown;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+  animation-duration: var(--animation-duration);
+}
+
+@keyframes countdown {
+  from {
+    stroke-dashoffset: 0;
+  }
+  to {
+    stroke-dashoffset: 75;
+  }
+}

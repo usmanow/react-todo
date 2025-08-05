@@ -31,7 +31,7 @@ const Select = ({ options, selected, onChange }) => {
   return (
     <div className={styles.selectWrapper} ref={wrapperRef}>
       <button
-        className={cn(styles.selectButton, isOpen && styles.open)}
+        className={cn(styles.selectButton, isOpen && styles['selectButton--open'])}
         type="button"
         onClick={toggleDropdown}
       >
