@@ -1,6 +1,4 @@
 .timer {
-  width: 28px;
-  height: 28px;
   color: var(--color-light-theme);
 
   text {
@@ -12,18 +10,14 @@
 
 .animatedCircle {
   stroke-dashoffset: 0;
-  stroke-dasharray: 75;
+  stroke-dasharray: var(--circumference);
   animation-name: countdown;
+  animation-duration: var(--animation-duration);
   animation-timing-function: linear;
   animation-fill-mode: forwards;
-  animation-duration: var(--animation-duration);
 }
 
 @keyframes countdown {
-  from {
-    stroke-dashoffset: 0;
-  }
-  to {
-    stroke-dashoffset: 75;
-  }
+  from { stroke-dashoffset: 0; }
+  to { stroke-dashoffset: var(--circumference); }
 }

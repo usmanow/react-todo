@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useDebounce } from '../../hooks/useDebounce'
 
 import Header from '../Header/Header'
@@ -28,7 +28,6 @@ const App = () => {
   const [filterValue, setFilterValue] = useState(filterOptions[0])
   const [isModalOpen, setIsModalOpen] = useState(false)
 
-  const undoTimeRef = useRef(null)
   const showUndo = deletedTask !== null
 
   useEffect(() => {
@@ -36,25 +35,19 @@ const App = () => {
   }, [tasks])
 
   useEffect(() => {
-    if (!deletedTask) {
-      clearInterval(undoTimeRef.current)
-      setTimeLeft(UNDO_TIME)
-      return
-    }
-
+    if (!deletedTask) return
     setTimeLeft(UNDO_TIME)
 
-    undoTimeRef.current = setInterval(() => setTimeLeft((prev) => {
+    const timerId = setInterval(() => setTimeLeft((prev) => {
       if (prev <= 1) {
-        clearInterval(undoTimeRef.current)
         setDeletedTask(null)
-        return 0
+        return UNDO_TIME
       }
 
       return prev - 1
     }), 1000)
 
-    return () => clearInterval(undoTimeRef.current)
+    return () => clearInterval(timerId)
   }, [deletedTask])
 
   const addTask = (text) => {
@@ -81,7 +74,6 @@ const App = () => {
     setTasks((prevTasks) => [...prevTasks, deletedTask])
     setDeletedTask(null)
     setTimeLeft(UNDO_TIME)
-    clearInterval(undoTimeRef.current)
   }
 
   const toggleTaskCompleted = (id) => {

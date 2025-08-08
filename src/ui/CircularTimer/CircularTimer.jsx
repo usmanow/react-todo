@@ -1,32 +1,39 @@
 import styles from './CircularTimer.module.scss'
 
 const CircularTimer = ({ timeLeft, totalTime }) => {
-  const radius = 12
+  const size = 28
+  const strokeWidth = 2
+  const radius = (size / 2) - (strokeWidth / 2)
   const circumference = 2 * Math.PI * radius
 
   return (
     <svg
       className={styles.timer}
-      viewBox="0 0 28 28"
+      width={size}
+      height={size}
+      viewBox={`0 0 ${size} ${size}`}
+      style={{
+        '--animation-duration': `${totalTime}s`,
+        '--circumference': circumference
+      }}
     >
       <circle
         className={styles.animatedCircle }
-        cx={14}
-        cy={14}
+        cx={size / 2}
+        cy={size / 2}
         r={radius}
         stroke="currentColor"
-        strokeWidth={2}
+        strokeWidth={strokeWidth}
         fill="transparent"
         strokeDasharray={circumference}
-        style={{ '--animation-duration': `${totalTime}s` }}
-        transform="rotate(-90 14 14)"
+        transform={`rotate(-90 ${size / 2} ${size / 2})`}
       />
       <text
         x="50%"
         y="50%"
         dominantBaseline="middle"
         textAnchor="middle"
-        dy="0.10em"
+        dy="0.1em"
       >
         {timeLeft}
       </text>
