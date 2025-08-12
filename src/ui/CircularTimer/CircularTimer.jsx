@@ -1,6 +1,6 @@
 import styles from './CircularTimer.module.scss'
 
-const CircularTimer = ({ timeLeft, totalTime }) => {
+const CircularTimer = ({ timeLeft, totalTime, animationKey }) => {
   const size = 28
   const strokeWidth = 2
   const radius = (size / 2) - (strokeWidth / 2)
@@ -8,7 +8,7 @@ const CircularTimer = ({ timeLeft, totalTime }) => {
 
   return (
     <svg
-      key={timeLeft}
+      key={animationKey}
       className={styles.timer}
       width={size}
       height={size}
