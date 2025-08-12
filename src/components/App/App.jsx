@@ -135,7 +135,7 @@ const App = () => {
 
       <footer className={styles.footer}>
         <UndoButton
-          show={showUndo}
+          visible={showUndo}
           onUndo={handleUndo}
           timeLeft={timeLeft}
           totalTime={UNDO_TIME}
