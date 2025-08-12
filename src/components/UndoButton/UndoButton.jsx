@@ -3,7 +3,7 @@ import UndoArrowIcon from '../../ui/icons/UndoArrowIcon/UndoArrowIcon'
 
 import styles from './UndoButton.module.scss'
 
-const UndoButton = ({ show, onUndo, timeLeft, totalTime }) => {
+const UndoButton = ({ show, onUndo, timeLeft, totalTime, animationKey }) => {
   if (!show) return null
 
   return (
@@ -13,6 +13,7 @@ const UndoButton = ({ show, onUndo, timeLeft, totalTime }) => {
       onClick={onUndo}
     >
       <CircularTimer
+        animationKey={animationKey}
         timeLeft={timeLeft}
         totalTime={totalTime}
       />

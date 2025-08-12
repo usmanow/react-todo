@@ -20,13 +20,16 @@ const App = () => {
     return storedTasks ? JSON.parse(storedTasks) : []
   })
 
+  const [isModalOpen, setIsModalOpen] = useState(false)
+
   const [deletedTasksStack, setDeletedTasksStack] = useState([])
   const [timeLeft, setTimeLeft] = useState(UNDO_TIME)
+  const [animationKey, setAnimationKey] = useState(0)
+
   const [searchValue, setSearchValue] = useState('')
   const debouncedSearchValue = useDebounce(searchValue, 300)
 
   const [filterValue, setFilterValue] = useState(filterOptions[0])
-  const [isModalOpen, setIsModalOpen] = useState(false)
 
   const showUndo = deletedTasksStack.length > 0
 
@@ -52,6 +55,12 @@ const App = () => {
     }), 1000)
 
     return () => clearInterval(timerId)
+  }, [deletedTasksStack])
+
+  useEffect(() => {
+    if (deletedTasksStack.length > 0) {
+      setAnimationKey((prev) => prev + 1)
+    }
   }, [deletedTasksStack])
 
   const addTask = (text) => {
@@ -130,6 +139,7 @@ const App = () => {
           onUndo={handleUndo}
           timeLeft={timeLeft}
           totalTime={UNDO_TIME}
+          animationKey={animationKey}
         />
         <AddTaskButton
           onClick={() => setIsModalOpen(true)}
