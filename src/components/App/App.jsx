@@ -20,7 +20,7 @@ const App = () => {
     return storedTasks ? JSON.parse(storedTasks) : []
   })
 
-  const [deletedTask, setDeletedTask] = useState(null)
+  const [deletedTasksStack, setDeletedTasksStack] = useState([])
   const [timeLeft, setTimeLeft] = useState(UNDO_TIME)
   const [searchValue, setSearchValue] = useState('')
   const debouncedSearchValue = useDebounce(searchValue, 300)
@@ -28,19 +28,23 @@ const App = () => {
   const [filterValue, setFilterValue] = useState(filterOptions[0])
   const [isModalOpen, setIsModalOpen] = useState(false)
 
-  const showUndo = deletedTask !== null
+  const showUndo = deletedTasksStack.length > 0
 
   useEffect(() => {
     localStorage.setItem('tasks', JSON.stringify(tasks))
   }, [tasks])
 
   useEffect(() => {
-    if (!deletedTask) return
+    if (deletedTasksStack.length === 0) {
+      setTimeLeft(UNDO_TIME)
+      return
+    }
+
     setTimeLeft(UNDO_TIME)
 
     const timerId = setInterval(() => setTimeLeft((prev) => {
       if (prev <= 1) {
-        setDeletedTask(null)
+        setDeletedTasksStack([])
         return UNDO_TIME
       }
 
@@ -48,7 +52,7 @@ const App = () => {
     }), 1000)
 
     return () => clearInterval(timerId)
-  }, [deletedTask])
+  }, [deletedTasksStack])
 
   const addTask = (text) => {
     const newTask = {
@@ -61,19 +65,28 @@ const App = () => {
   }
 
   const deleteTask = (id) => {
-    const taskToDelete = tasks.find((task) => task.id === id)
-    if (!taskToDelete) return
+    const index = tasks.findIndex((task) => task.id === id)
+    if (index === -1) return
 
-    setDeletedTask(taskToDelete)
+    const taskToDelete = tasks[index]
+    setDeletedTasksStack((prevStack) => [...prevStack, { task: taskToDelete, index }])
+
     setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id))
   }
 
   const handleUndo = () => {
-    if (!deletedTask) return
+    if (deletedTasksStack.length === 0) return
 
-    setTasks((prevTasks) => [...prevTasks, deletedTask])
-    setDeletedTask(null)
-    setTimeLeft(UNDO_TIME)
+    const lastDeleted = deletedTasksStack[deletedTasksStack.length - 1]
+    const { task, index } = lastDeleted
+
+    setTasks((prevTasks) => {
+      const newTasks = [...prevTasks]
+      newTasks.splice(index, 0, task)
+      return newTasks
+    })
+
+    setDeletedTasksStack((prevStack) => prevStack.slice(0, -1))
   }
 
   const toggleTaskCompleted = (id) => {

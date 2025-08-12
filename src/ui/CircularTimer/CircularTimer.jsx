@@ -8,6 +8,7 @@ const CircularTimer = ({ timeLeft, totalTime }) => {
 
   return (
     <svg
+      key={timeLeft}
       className={styles.timer}
       width={size}
       height={size}
