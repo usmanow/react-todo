@@ -1,14 +1,14 @@
 import CircularTimer from '../../ui/CircularTimer/CircularTimer'
 import UndoArrowIcon from '../../ui/icons/UndoArrowIcon/UndoArrowIcon'
 
+import { cn } from '../../utils/utils'
+
 import styles from './UndoButton.module.scss'
 
-const UndoButton = ({ show, onUndo, timeLeft, totalTime, animationKey }) => {
-  if (!show) return null
-
+const UndoButton = ({ visible, onUndo, timeLeft, totalTime, animationKey }) => {
   return (
     <button
-      className={styles.undoButton}
+      className={cn(styles.undoButton, visible && styles.visible)}
       type="button"
       onClick={onUndo}
     >
