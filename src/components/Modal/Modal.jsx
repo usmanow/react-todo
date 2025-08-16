@@ -16,6 +16,10 @@ const Modal = ({ isOpen, onClose, onSubmit }) => {
   const isInputEmpty = inputValue.trim() === ''
 
   useEffect(() => {
+    if (isVisible) inputRef.current.focus()
+  }, [isVisible])
+
+  useEffect(() => {
     if (isOpen) {
       setIsRendered(true)
 
@@ -54,7 +58,7 @@ const Modal = ({ isOpen, onClose, onSubmit }) => {
     >
       <form
         className={cn(styles.modal, isVisible && styles.visible)}
-        onClick={(e) => e.stopPropagation(e)}
+        onClick={(e) => e.stopPropagation()}
         onSubmit={handleApply}
       >
         <div className={styles.modalHeader}>

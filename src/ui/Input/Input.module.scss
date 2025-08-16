@@ -24,15 +24,10 @@
 
   &::placeholder {
     color: var(--color-accent-light);
-    transition: color var(--transition);
   }
 
   &:focus {
     box-shadow: var(--shadow);
-  }
-
-  &:focus::placeholder {
-    color: transparent;
   }
 }
 
