@@ -38,30 +38,19 @@ const App = () => {
   }, [tasks])
 
   useEffect(() => {
-    if (deletedTasksStack.length === 0) {
-      setTimeLeft(UNDO_TIME)
-      return
-    }
-
-    setTimeLeft(UNDO_TIME)
+    if (!showUndo) return
 
     const timerId = setInterval(() => setTimeLeft((prev) => {
       if (prev <= 1) {
         setDeletedTasksStack([])
-        return UNDO_TIME
+        return 0
       }
 
       return prev - 1
     }), 1000)
 
     return () => clearInterval(timerId)
-  }, [deletedTasksStack])
-
-  useEffect(() => {
-    if (deletedTasksStack.length > 0) {
-      setAnimationKey((prev) => prev + 1)
-    }
-  }, [deletedTasksStack])
+  }, [showUndo])
 
   const addTask = (text) => {
     const newTask = {
@@ -78,6 +67,8 @@ const App = () => {
     if (index === -1) return
 
     const taskToDelete = tasks[index]
+    setTimeLeft(UNDO_TIME)
+    setAnimationKey((prev) => prev + 1)
     setDeletedTasksStack((prevStack) => [...prevStack, { task: taskToDelete, index }])
 
     setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id))
@@ -135,7 +126,7 @@ const App = () => {
 
       <footer className={styles.footer}>
         <UndoButton
-          visible={showUndo}
+          isVisible={showUndo}
           onUndo={handleUndo}
           timeLeft={timeLeft}
           totalTime={UNDO_TIME}
