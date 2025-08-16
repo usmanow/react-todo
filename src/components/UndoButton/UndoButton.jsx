@@ -5,10 +5,10 @@ import { cn } from '../../utils/utils'
 
 import styles from './UndoButton.module.scss'
 
-const UndoButton = ({ visible, onUndo, timeLeft, totalTime, animationKey }) => {
+const UndoButton = ({ isVisible, onUndo, timeLeft, totalTime, animationKey }) => {
   return (
     <button
-      className={cn(styles.undoButton, visible && styles.visible)}
+      className={cn(styles.undoButton, isVisible && styles.visible)}
       type="button"
       onClick={onUndo}
     >
@@ -17,8 +17,8 @@ const UndoButton = ({ visible, onUndo, timeLeft, totalTime, animationKey }) => {
         timeLeft={timeLeft}
         totalTime={totalTime}
       />
-      Undo
       <UndoArrowIcon />
+      Undo
     </button>
   )
 }
