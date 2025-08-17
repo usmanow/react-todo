@@ -3,13 +3,14 @@ import LightThemeIcon from '../../ui/icons/LightThemeIcon/LightThemeIcon'
 
 import styles from './ThemeToggle.module.scss'
 
-const ThemeToggle = () => {
+const ThemeToggle = ({ theme, onToggleTheme }) => {
   return (
     <button
       className={styles.themeToggleButton}
       type="button"
+      onClick={onToggleTheme}
     >
-      <DarkThemeIcon />
+      {theme === 'light' ? <DarkThemeIcon /> : <LightThemeIcon />}
     </button>
   )
 }

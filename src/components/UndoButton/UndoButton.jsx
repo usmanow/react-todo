@@ -18,7 +18,7 @@ const UndoButton = ({ isVisible, onUndo, timeLeft, totalTime, animationKey }) =>
         totalTime={totalTime}
       />
       <UndoArrowIcon />
-      Undo
+      <span className={styles.undoText}>Undo</span>
     </button>
   )
 }

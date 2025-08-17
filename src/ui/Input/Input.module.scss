@@ -17,8 +17,9 @@
   font-size: 18px;
   font-family: 'Inter';
   font-weight: 400;
-  color: var(--color-dark-theme);
-  border: var(--border);
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  border: var(--border-input);
   border-radius: var(--border-radius);
   transition: box-shadow var(--transition);
 
@@ -55,16 +56,11 @@
     transform: translate(-50%, -50%) rotate(45deg);
     width: 22px;
     height: 1px;
-    background-color: var(--color-accent);
+    background-color: var(--color-clear-button);
     transition: box-shadow var(--transition);
   }
 
    &::after {
     transform: translate(-50%, -50%) rotate(-45deg);
-  }
-
-  &:hover::before,
-  &:hover::after {
-    box-shadow: var(--shadow);
   }
 }

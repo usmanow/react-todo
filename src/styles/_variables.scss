@@ -1,7 +1,6 @@
 :root {
-  --color-light: #FFFFFF;
-  --color-light-theme: #F7F7F7;
-  --color-dark-theme: #252525;
+  --color-light: #F7F7F7;
+  --color-dark: #252525;
   --color-accent: #6C63FF;
   --color-accent-dark: #534CC2;
   --color-accent-light: #C3C1E5;
@@ -10,7 +9,6 @@
   --color-accent-selected: rgba(var(--color-accent-rgb), 0.4);
   --color-red: #E50000;
   --color-gray: #CDCDCD;
-  --color-strikethrough: rgba(37, 37, 37, 0.5);
 
   --font-family-base: 'Kanit';
 
@@ -20,4 +18,24 @@
   --shadow: 0 0 4px var(--color-accent);
 
   --transition: 0.3s ease;
+
+  --color-bg: #F7F7F7;
+  --color-text: #252525;
+  --color-strikethrough: rgba(37, 37, 37, 0.5);
+  --color-ui-bg: #F7F7F7;
+  --border-input: 1px solid var(--color-accent);
+  --border-task: var(--color-accent);
+  --color-clear-button: var(--color-accent);
+  --color-search: var(--color-accent);
+}
+
+[data-theme='dark'] {
+  --color-bg: #252525;
+  --color-text: #F7F7F7;
+  --color-strikethrough: rgba(247, 247, 247, 0.5);
+  --color-ui-bg: #252525;
+  --color-clear-button: var(--color-light);
+  --border-input: 1px solid var(--color-accent-dark);
+  --border-task: var(--color-accent-dark);
+  --color-search: var(--color-accent-dark);
 }

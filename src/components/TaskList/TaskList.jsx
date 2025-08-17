@@ -5,7 +5,7 @@ import EmptyState from '../EmptyState/EmptyState'
 
 import styles from './TaskList.module.scss'
 
-const TaskList = ({ tasks, onToggleTask, onDeleteTask, onEditTask }) => {
+const TaskList = ({ tasks, onToggleTask, onDeleteTask, onEditTask, theme }) => {
   const isEmpty = tasks.length === 0
 
   const motionProps = {
@@ -19,7 +19,10 @@ const TaskList = ({ tasks, onToggleTask, onDeleteTask, onEditTask }) => {
     <div className={styles.taskListWrapper}>
       <AnimatePresence mode="wait">
         {isEmpty ? (
-          <EmptyState key="empty" />
+          <EmptyState
+            key="empty"
+            theme={theme}
+          />
         ) : (
           <motion.ul
             key="task-list"
