@@ -9,7 +9,9 @@ const Header = ({
   onSearchChange,
   filterValue,
   onFilterChange,
-  filterOptions
+  filterOptions,
+  theme,
+  onToggleTheme
 }) => {
   return (
     <header className={styles.header}>
@@ -31,7 +33,10 @@ const Header = ({
           onChange={onFilterChange}
         />
 
-        <ThemeToggle />
+        <ThemeToggle
+          theme={theme}
+          onToggleTheme={onToggleTheme}
+        />
       </div>
     </header>
   )

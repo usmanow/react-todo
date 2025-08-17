@@ -16,21 +16,21 @@
   }
 
   &--apply {
-    color: var(--color-light-theme);
+    color: var(--color-light);
     background-color: var(--color-accent);
 
     &:not(:disabled):hover {
       color: var(--color-accent);
-      background-color: var(--color-light-theme);
+      background-color: var(--color-bg);
     }
   }
 
   &--cancel {
     color: var(--color-accent);
-    background-color: var(--color-light-theme);
+    background-color: var(--color-bg);
 
     &:not(:disabled):hover {
-      color: var(--color-light-theme);
+      color: var(--color-light);
       background-color: var(--color-accent);
     }
   }

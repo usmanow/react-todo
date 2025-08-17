@@ -10,8 +10,8 @@
   height: 40px;
   padding: 10px;
   font-size: 18px;
-  text-transform: uppercase;
   color: var(--color-light);
+  text-transform: uppercase;
   border: 2px solid transparent;
   background-color: var(--color-accent);
   border-radius: var(--border-radius);
@@ -51,7 +51,7 @@
   color: var(--color-accent);
   border: var(--border);
   border-radius: var(--border-radius);
-  background-color: var(--color-light-theme);
+  background-color: var(--color-light);
   box-shadow: var(--shadow);
   list-style: none;
   z-index: 2;

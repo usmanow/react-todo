@@ -7,7 +7,14 @@ body {
   font-family: var(--font-family-base);
   font-weight: 500;
   line-height: normal;
-  background-color: var(--color-light-theme);
+  background-color: var(--color-bg);
+}
+
+.theme-transition * {
+  transition:
+    color var(--transition),
+    background-color var(--transition),
+    border-color var(--transition);
 }
 
 .visually-hidden {

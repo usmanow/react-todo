@@ -15,21 +15,17 @@ import { filterOptions, UNDO_TIME } from '../../constants/constants'
 import styles from './App.module.scss'
 
 const App = () => {
-  const [tasks, setTasks] = useState(() => {
-    const storedTasks = localStorage.getItem('tasks')
-    return storedTasks ? JSON.parse(storedTasks) : []
-  })
-
-  const [isModalOpen, setIsModalOpen] = useState(false)
-
+  const [tasks, setTasks] = useState(() => JSON.parse(localStorage.getItem('tasks')) || [])
   const [deletedTasksStack, setDeletedTasksStack] = useState([])
   const [timeLeft, setTimeLeft] = useState(UNDO_TIME)
   const [animationKey, setAnimationKey] = useState(0)
 
+  const [isModalOpen, setIsModalOpen] = useState(false)
   const [searchValue, setSearchValue] = useState('')
   const debouncedSearchValue = useDebounce(searchValue, 300)
-
   const [filterValue, setFilterValue] = useState(filterOptions[0])
+
+  const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'light')
 
   const showUndo = deletedTasksStack.length > 0
 
@@ -38,7 +34,7 @@ const App = () => {
   }, [tasks])
 
   useEffect(() => {
-    if (!showUndo) return
+    if (deletedTasksStack.length === 0) return
 
     const timerId = setInterval(() => setTimeLeft((prev) => {
       if (prev <= 1) {
@@ -50,7 +46,11 @@ const App = () => {
     }), 1000)
 
     return () => clearInterval(timerId)
-  }, [showUndo])
+  }, [deletedTasksStack])
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme)
+  }, [theme])
 
   const addTask = (text) => {
     const newTask = {
@@ -105,6 +105,21 @@ const App = () => {
 
   const filteredTasks = filterAndSearchTasks(tasks, filterValue, debouncedSearchValue)
 
+  const toggleTheme = () => {
+    const root = document.documentElement
+    root.classList.add('theme-transition')
+
+    setTheme((prevTheme) => {
+      const newTheme = prevTheme === 'light' ? 'dark' : 'light'
+      localStorage.setItem('theme', newTheme)
+      return newTheme
+    })
+
+    window.setTimeout(() => {
+      root.classList.remove('theme-transition')
+    }, 300)
+  }
+
   return (
     <div className={styles.container}>
       <Header
@@ -113,6 +128,8 @@ const App = () => {
         filterValue={filterValue}
         onFilterChange={handleFilterChange}
         filterOptions={filterOptions}
+        theme={theme}
+        onToggleTheme={toggleTheme}
       />
 
       <main className={styles.main}>
@@ -121,6 +138,7 @@ const App = () => {
           onToggleTask={toggleTaskCompleted}
           onDeleteTask={deleteTask}
           onEditTask={handleEditTask}
+          theme={theme}
         />
       </main>
 
