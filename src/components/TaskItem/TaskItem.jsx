@@ -38,7 +38,12 @@ const TaskItem = ({ task, onToggleTask, onDeleteTask, onEditTask }) => {
   }
 
   const handleConfirmEdit = () => {
-    onEditTask(task.id, editedText)
+    const trimmedEditedText = editedText.trim()
+
+    if (trimmedEditedText !== '') {
+      onEditTask(task.id, trimmedEditedText)
+    }
+
     setIsEditing(false)
   }
 

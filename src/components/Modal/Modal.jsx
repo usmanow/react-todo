@@ -16,7 +16,9 @@ const Modal = ({ isOpen, onClose, onSubmit }) => {
   const isInputEmpty = inputValue.trim() === ''
 
   useEffect(() => {
-    if (isVisible) inputRef.current.focus()
+    if (isVisible) {
+      inputRef.current.focus()
+    }
   }, [isVisible])
 
   useEffect(() => {
@@ -41,7 +43,7 @@ const Modal = ({ isOpen, onClose, onSubmit }) => {
     if (!taskText) return
     onSubmit(taskText)
     setInputValue('')
-    inputRef.current?.focus()
+    onClose()
   }
 
   const handleClose = () => {
