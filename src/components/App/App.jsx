@@ -69,22 +69,40 @@ const App = () => {
     const taskToDelete = tasks[index]
     setTimeLeft(UNDO_TIME)
     setAnimationKey((prev) => prev + 1)
-    setDeletedTasksStack((prevStack) => [...prevStack, { task: taskToDelete, index }])
+    setDeletedTasksStack((prevStack) => [...prevStack, { task: taskToDelete, index, type: 'single' }])
 
     setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id))
+  }
+
+  const handleClearAllTasks = () => {
+    const tasksToDelete = tasks.map((task, index) => ({ task, index }))
+    setDeletedTasksStack((prevStack) => [...prevStack, { tasks: tasksToDelete, type: 'all' }])
+    setTasks([])
+    setTimeLeft(UNDO_TIME)
+    setAnimationKey((prev) => prev + 1)
   }
 
   const handleUndo = () => {
     if (deletedTasksStack.length === 0) return
 
     const lastDeleted = deletedTasksStack[deletedTasksStack.length - 1]
-    const { task, index } = lastDeleted
 
-    setTasks((prevTasks) => {
-      const newTasks = [...prevTasks]
-      newTasks.splice(index, 0, task)
-      return newTasks
-    })
+    if (lastDeleted.type === 'single') {
+      const { task, index } = lastDeleted
+
+      setTasks((prevTasks) => {
+        const newTasks = [...prevTasks]
+        newTasks.splice(index, 0, task)
+        return newTasks
+      })
+
+    } else if (lastDeleted.type === 'all') {
+      setTasks((prevTasks) => {
+        const newTasks = [...prevTasks]
+        lastDeleted.tasks.forEach(({ task, index }) => newTasks.splice(index, 0, task))
+        return newTasks
+      })
+    }
 
     setDeletedTasksStack((prevStack) => prevStack.slice(0, -1))
   }
@@ -97,7 +115,7 @@ const App = () => {
 
   const handleFilterChange = (newFilter) => setFilterValue(newFilter)
 
-  const handleEditTask = (id, newText) => {
+  const editTask = (id, newText) => {
     setTasks((prevTasks) => prevTasks.map((task) =>
       task.id === id ? { ...task, text: newText } : task
     ))
@@ -105,7 +123,7 @@ const App = () => {
 
   const filteredTasks = filterAndSearchTasks(tasks, filterValue, debouncedSearchValue)
 
-  const toggleTheme = () => {
+  const handleToggleTheme = () => {
     const root = document.documentElement
     root.classList.add('theme-transition')
 
@@ -129,7 +147,7 @@ const App = () => {
         onFilterChange={handleFilterChange}
         filterOptions={filterOptions}
         theme={theme}
-        onToggleTheme={toggleTheme}
+        onToggleTheme={handleToggleTheme}
       />
 
       <main className={styles.main}>
@@ -137,7 +155,8 @@ const App = () => {
           tasks={filteredTasks}
           onToggleTask={toggleTaskCompleted}
           onDeleteTask={deleteTask}
-          onEditTask={handleEditTask}
+          onDeleteTasks={handleClearAllTasks}
+          onEditTask={editTask}
           theme={theme}
         />
       </main>
