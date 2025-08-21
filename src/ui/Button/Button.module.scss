@@ -1,5 +1,9 @@
 .button {
-  width: 97px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-inline: 20px;
+  min-width: 110px;
   height: 40px;
   font-size: 18px;
   text-transform: uppercase;
@@ -8,7 +12,8 @@
   transition:
     color var(--transition),
     background-color var(--transition),
-    border var(--transition);
+    border var(--transition),
+    box-shadow var(--transition);
 
   &:disabled {
     cursor: not-allowed;
@@ -32,6 +37,16 @@
     &:not(:disabled):hover {
       color: var(--color-light);
       background-color: var(--color-accent);
+    }
+  }
+
+  &--clear {
+    color: var(--color-light);
+    background-color: var(--color-accent);
+
+    &:hover {
+      background-color: var(--color-accent-dark);
+      box-shadow: var(--shadow);
     }
   }
 }
