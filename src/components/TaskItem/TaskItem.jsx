@@ -18,6 +18,14 @@ const TaskItem = ({ task, onToggleTask, onDeleteTask, onEditTask }) => {
 
   const timeoutRef = useRef(null)
 
+  const date = new Date(task.createdAt)
+  const datePart = date.toLocaleDateString('en-GB')
+  const timePart = date.toLocaleTimeString('ru-RU', {
+    hour: '2-digit',
+    minute: '2-digit',
+  })
+  const createdAt = `${datePart}, ${timePart}`
+
   useEffect(() => {
     setIsLocalCompleted(task.completed)
   }, [task.completed])
@@ -81,20 +89,24 @@ const TaskItem = ({ task, onToggleTask, onDeleteTask, onEditTask }) => {
           <CheckmarkIcon className={styles.checkmarkIcon} />
         </div>
 
-        {!isEditing ? (
-          <div className={cn(styles.taskText, localCompleted && styles.completed)}>
-            {task.text}
-          </div>
-        ) : (
-          <input
-            className={styles.editInput}
-            type="text"
-            value={editedText}
-            name="edit"
-            autoFocus
-            onChange={(e) => setEditedText(e.target.value)}
-          />
-        )}
+        <div className={styles.taskContainer}>
+          {isEditing ? (
+            <input
+              className={styles.editInput}
+              type="text"
+              maxLength={55}
+              value={editedText}
+              name='editing'
+              autoFocus
+              onChange={(e) => setEditedText(e.target.value)}
+            />
+          ) : (
+            <div className={cn(styles.taskText, localCompleted && styles.completed)}>
+              {task.text}
+            </div>
+          )}
+          <time className={styles.time}>Added: {createdAt}</time>
+        </div>
       </label>
 
       <div className={styles.taskControls}>
