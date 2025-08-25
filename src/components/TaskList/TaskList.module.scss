@@ -6,12 +6,26 @@
   min-height: 0;
 }
 
+.taskHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: 'Inter';
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.tasksShown {
+ color: var(--color-accent);
+}
+
 .clearButton {
   flex: 0 0 auto;
   align-self: flex-start;
 }
 
-.taskListWrapper {
+.taskListBody {
   flex: 1 1 auto;
   overflow-y: auto;
 }

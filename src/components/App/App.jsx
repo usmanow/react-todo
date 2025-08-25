@@ -153,6 +153,7 @@ const App = () => {
       <main className={styles.main}>
         <TaskList
           tasks={filteredTasks}
+          totalTasks={tasks.length}
           onToggleTask={toggleTaskCompleted}
           onDeleteTask={deleteTask}
           onDeleteTasks={handleClearAllTasks}
