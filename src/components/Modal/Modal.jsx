@@ -69,6 +69,7 @@ const Modal = ({ isOpen, onClose, onSubmit }) => {
             <Input
               ref={inputRef}
               value={inputValue}
+              maxLength={55}
               name="newTask"
               onChange={setInputValue}
               placeholder="Input your task..."

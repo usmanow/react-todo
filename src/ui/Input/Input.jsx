@@ -6,7 +6,7 @@ import { cn } from '../../utils/utils'
 
 import styles from './Input.module.scss'
 
-const Input = ({ name, value, placeholder, onChange, showSearchIcon }, ref) => {
+const Input = ({ name, value, placeholder, onChange, showSearchIcon, maxLength }, ref) => {
   const inputRef = useRef(null)
 
   useImperativeHandle(ref, () => ({
@@ -25,6 +25,7 @@ const Input = ({ name, value, placeholder, onChange, showSearchIcon }, ref) => {
         type="text"
         name={name}
         value={value}
+        maxLength={maxLength}
         placeholder={placeholder}
         ref={inputRef}
         onChange={(e) => onChange(e.target.value)}

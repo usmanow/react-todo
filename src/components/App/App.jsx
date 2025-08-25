@@ -56,7 +56,8 @@ const App = () => {
     const newTask = {
       id: uuidv4(),
       text,
-      completed: false
+      completed: false,
+      createdAt: new Date()
     }
 
     setTasks((prevTasks) => [...prevTasks, newTask])
