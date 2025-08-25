@@ -6,7 +6,7 @@ import Button from '../../ui/Button/Button'
 
 import styles from './TaskList.module.scss'
 
-const TaskList = ({ tasks, onToggleTask, onDeleteTask, onEditTask, onDeleteTasks, theme }) => {
+const TaskList = ({ tasks, totalTasks, onToggleTask, onDeleteTask, onEditTask, onDeleteTasks, theme }) => {
   const isEmpty = tasks.length === 0
 
   const motionProps = {
@@ -21,7 +21,7 @@ const TaskList = ({ tasks, onToggleTask, onDeleteTask, onEditTask, onDeleteTasks
 
       <AnimatePresence>
         {!isEmpty && (
-          <motion.div
+          <motion.div className={styles.taskHeader}
             {...motionProps}
           >
             <Button
@@ -31,11 +31,13 @@ const TaskList = ({ tasks, onToggleTask, onDeleteTask, onEditTask, onDeleteTasks
             >
               Clear All
             </Button>
+
+            <span className={styles.taskQuantity}>Showing <span className={styles.tasksShown}>{tasks.length}</span> of {totalTasks}</span>
           </motion.div>
         )}
       </AnimatePresence>
 
-      <div className={styles.taskListWrapper}>
+      <div className={styles.taskListBody}>
         <AnimatePresence mode="wait">
           {isEmpty ? (
             <EmptyState
