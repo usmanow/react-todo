@@ -52,6 +52,7 @@ const App = () => {
   }, [deletedTasksStack])
 
   useEffect(() => {
+    localStorage.setItem('theme', theme)
     document.documentElement.setAttribute('data-theme', theme)
   }, [theme])
 
@@ -131,15 +132,9 @@ const App = () => {
     const root = document.documentElement
     root.classList.add('theme-transition')
 
-    setTheme((prevTheme) => {
-      const newTheme = prevTheme === 'light' ? 'dark' : 'light'
-      localStorage.setItem('theme', newTheme)
-      return newTheme
-    })
+    setTheme((prevTheme) => prevTheme === 'light' ? 'dark' : 'light')
 
-    window.setTimeout(() => {
-      root.classList.remove('theme-transition')
-    }, 300)
+    setTimeout(() => root.classList.remove('theme-transition'), 300)
   }
 
   return (
