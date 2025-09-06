@@ -9,6 +9,8 @@ const ThemeToggle = ({ theme, onToggleTheme }) => {
       className={styles.themeToggleButton}
       type="button"
       onClick={onToggleTheme}
+      aria-label="Toggle theme"
+      aria-pressed={theme === 'dark'}
     >
       {theme === 'light' ? <DarkThemeIcon /> : <LightThemeIcon />}
     </button>

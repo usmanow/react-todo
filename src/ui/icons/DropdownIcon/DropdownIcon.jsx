@@ -5,6 +5,7 @@ const DropdownIcon = ({ className }) => {
   return (
     <svg
       className={cn(styles.dropdownIcon, className)}
+      aria-hidden="true"
       viewBox="0 0 8 5"
       fill="none"
     >
