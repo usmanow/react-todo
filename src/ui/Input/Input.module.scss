@@ -21,14 +21,9 @@
   background-color: var(--color-bg);
   border: var(--border-input);
   border-radius: var(--border-radius);
-  transition: box-shadow var(--transition);
 
   &::placeholder {
     color: var(--color-accent-light);
-  }
-
-  &:focus {
-    box-shadow: var(--shadow);
   }
 }
 

@@ -6,7 +6,7 @@ import { cn } from '../../utils/utils'
 
 import styles from './Input.module.scss'
 
-const Input = ({ name, value, placeholder, onChange, showSearchIcon, maxLength }, ref) => {
+const Input = ({ id, value, placeholder, onChange, showSearchIcon, maxLength }, ref) => {
   const inputRef = useRef(null)
 
   useImperativeHandle(ref, () => ({
@@ -21,9 +21,9 @@ const Input = ({ name, value, placeholder, onChange, showSearchIcon, maxLength }
   return (
     <div className={cn(styles.inputWrapper, !showSearchIcon && styles.noIcon)}>
       <input
-        className={styles.input}
+        className={cn(styles.input, 'js-focus')}
         type="text"
-        name={name}
+        id={id}
         value={value}
         maxLength={maxLength}
         placeholder={placeholder}
@@ -38,6 +38,7 @@ const Input = ({ name, value, placeholder, onChange, showSearchIcon, maxLength }
           className={styles.clearButton}
           type="button"
           onClick={handleClear}
+          aria-label="Clear input"
         >
         </button>
       )}

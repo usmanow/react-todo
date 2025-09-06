@@ -13,8 +13,11 @@ import { filterAndSearchTasks } from '../../utils/utils'
 import { filterOptions, UNDO_TIME } from '../../constants/constants'
 
 import styles from './App.module.scss'
+import { useFocusVisible } from '../../hooks/useFocusVisible'
 
 const App = () => {
+  useFocusVisible()
+
   const [tasks, setTasks] = useState(() => JSON.parse(localStorage.getItem('tasks')) || [])
   const [deletedTasksStack, setDeletedTasksStack] = useState([])
   const [timeLeft, setTimeLeft] = useState(UNDO_TIME)
