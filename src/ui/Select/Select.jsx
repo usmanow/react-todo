@@ -38,9 +38,9 @@ const Select = ({ options, selected, onChange, id }) => {
   }, [])
 
   useEffect(() => {
-    const handleKeyDown = (e) => {
-      if (!isOpen) return
+    if (!isOpen) return
 
+    const handleKeyDown = (e) => {
       if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
         e.preventDefault()
 

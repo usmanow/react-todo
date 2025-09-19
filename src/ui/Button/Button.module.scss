@@ -45,7 +45,7 @@
     color: var(--color-light);
     background-color: var(--color-accent);
 
-    &:hover {
+    &:not(:disabled):hover {
       background-color: var(--color-accent-dark);
       border-color: var(--color-accent);
       box-shadow: var(--shadow);

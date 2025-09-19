@@ -1,11 +1,15 @@
 import { v4 as uuidv4 } from 'uuid'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+
 import { useDebounce } from '../../hooks/useDebounce'
+import { useFocusVisible } from '../../hooks/useFocusVisible'
+import { useModalShortcut } from '../../hooks/useModalShortcut'
+import { useUndoShortcut } from '../../hooks/useUndoShortcut'
 
 import Header from '../Header/Header'
 import Modal from '../Modal/Modal'
-import AddTaskButton from '../../ui/AddTaskButton/AddTaskButton'
+import OpenModalButton from '../../ui/OpenModalButton/OpenModalButton'
 import UndoButton from '../UndoButton/UndoButton'
 import TaskList from '../TaskList/TaskList'
 
@@ -13,48 +17,45 @@ import { filterAndSearchTasks } from '../../utils/utils'
 import { filterOptions, UNDO_TIME } from '../../constants/constants'
 
 import styles from './App.module.scss'
-import { useFocusVisible } from '../../hooks/useFocusVisible'
 
 const App = () => {
-  useFocusVisible()
-
   const [tasks, setTasks] = useState(() => JSON.parse(localStorage.getItem('tasks')) || [])
   const [deletedTasksStack, setDeletedTasksStack] = useState([])
-  const [timeLeft, setTimeLeft] = useState(UNDO_TIME)
-  const [animationKey, setAnimationKey] = useState(0)
-
+  const [undoTimeLeft, setUndoTimeLeft] = useState(UNDO_TIME)
+  const [undoAnimationKey, setUndoAnimationKey] = useState(0)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [searchValue, setSearchValue] = useState('')
-  const debouncedSearchValue = useDebounce(searchValue, 300)
   const [filterValue, setFilterValue] = useState(filterOptions[0])
-
   const [theme, setTheme] = useState(() => localStorage.getItem('theme') || 'light')
+
+  const openModalButtonRef = useRef(null)
+  const buttonHadFocusRef = useRef(false)
 
   const showUndo = deletedTasksStack.length > 0
 
-  useEffect(() => {
-    localStorage.setItem('tasks', JSON.stringify(tasks))
-  }, [tasks])
+  const debouncedSearchValue = useDebounce(searchValue, 300)
+  useFocusVisible()
 
-  useEffect(() => {
-    if (deletedTasksStack.length === 0) return
-
-    const timerId = setInterval(() => setTimeLeft((prev) => {
-      if (prev <= 1) {
-        setDeletedTasksStack([])
-        return 0
+  const handleOpenModal = (e) => {
+    if (e.detail === 0) {
+        buttonHadFocusRef.current = true
+      } else {
+        buttonHadFocusRef.current = false
       }
 
-      return prev - 1
-    }), 1000)
+    setIsModalOpen(true)
+  }
 
-    return () => clearInterval(timerId)
-  }, [deletedTasksStack])
+  const handleCloseModal = () => {
+    setIsModalOpen(false)
 
-  useEffect(() => {
-    localStorage.setItem('theme', theme)
-    document.documentElement.setAttribute('data-theme', theme)
-  }, [theme])
+    if (buttonHadFocusRef.current && openModalButtonRef.current) {
+      setTimeout(() => {
+        openModalButtonRef.current.focus()
+      }, 0)
+      buttonHadFocusRef.current = false
+    }
+  }
 
   const addTask = (text) => {
     const newTask = {
@@ -72,8 +73,8 @@ const App = () => {
     if (index === -1) return
 
     const taskToDelete = tasks[index]
-    setTimeLeft(UNDO_TIME)
-    setAnimationKey((prev) => prev + 1)
+    setUndoTimeLeft(UNDO_TIME)
+    setUndoAnimationKey((prev) => prev + 1)
     setDeletedTasksStack((prevStack) => [...prevStack, { task: taskToDelete, index, type: 'single' }])
 
     setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id))
@@ -83,9 +84,23 @@ const App = () => {
     const tasksToDelete = tasks.map((task, index) => ({ task, index }))
     setDeletedTasksStack((prevStack) => [...prevStack, { tasks: tasksToDelete, type: 'all' }])
     setTasks([])
-    setTimeLeft(UNDO_TIME)
-    setAnimationKey((prev) => prev + 1)
+    setUndoTimeLeft(UNDO_TIME)
+    setUndoAnimationKey((prev) => prev + 1)
   }
+
+  const toggleTaskCompleted = (id) => {
+    setTasks((prevTasks) => prevTasks.map((task) =>
+      task.id === id ? { ...task, completed: !task.completed } : task
+    ))
+  }
+
+  const editTask = (id, newText) => {
+    setTasks((prevTasks) => prevTasks.map((task) =>
+      task.id === id ? { ...task, text: newText } : task
+    ))
+  }
+
+  const handleFilterChange = (newFilter) => setFilterValue(newFilter)
 
   const handleUndo = () => {
     if (deletedTasksStack.length === 0) return
@@ -112,22 +127,6 @@ const App = () => {
     setDeletedTasksStack((prevStack) => prevStack.slice(0, -1))
   }
 
-  const toggleTaskCompleted = (id) => {
-    setTasks((prevTasks) => prevTasks.map((task) =>
-      task.id === id ? { ...task, completed: !task.completed } : task
-    ))
-  }
-
-  const handleFilterChange = (newFilter) => setFilterValue(newFilter)
-
-  const editTask = (id, newText) => {
-    setTasks((prevTasks) => prevTasks.map((task) =>
-      task.id === id ? { ...task, text: newText } : task
-    ))
-  }
-
-  const filteredTasks = filterAndSearchTasks(tasks, filterValue, debouncedSearchValue)
-
   const handleToggleTheme = () => {
     const root = document.documentElement
     root.classList.add('theme-transition')
@@ -136,6 +135,35 @@ const App = () => {
 
     setTimeout(() => root.classList.remove('theme-transition'), 300)
   }
+
+  useModalShortcut(() => setIsModalOpen(true), isModalOpen)
+  useUndoShortcut(handleUndo, showUndo)
+
+  const filteredTasks = filterAndSearchTasks(tasks, filterValue, debouncedSearchValue)
+
+  useEffect(() => {
+    localStorage.setItem('tasks', JSON.stringify(tasks))
+  }, [tasks])
+
+  useEffect(() => {
+    if (deletedTasksStack.length === 0) return
+
+    const timerId = setInterval(() => setUndoTimeLeft((prev) => {
+      if (prev <= 1) {
+        setDeletedTasksStack([])
+        return 0
+      }
+
+      return prev - 1
+    }), 1000)
+
+    return () => clearInterval(timerId)
+  }, [deletedTasksStack])
+
+  useEffect(() => {
+    localStorage.setItem('theme', theme)
+    document.documentElement.setAttribute('data-theme', theme)
+  }, [theme])
 
   return (
     <div className={styles.container}>
@@ -165,18 +193,19 @@ const App = () => {
         <UndoButton
           isVisible={showUndo}
           onUndo={handleUndo}
-          timeLeft={timeLeft}
+          timeLeft={undoTimeLeft}
           totalTime={UNDO_TIME}
-          animationKey={animationKey}
+          animationKey={undoAnimationKey}
         />
-        <AddTaskButton
-          onClick={() => setIsModalOpen(true)}
+        <OpenModalButton
+          ref={openModalButtonRef}
+          onClick={handleOpenModal}
         />
       </footer>
 
       <Modal
         isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
+        onClose={handleCloseModal}
         onSubmit={addTask}
       />
     </div>

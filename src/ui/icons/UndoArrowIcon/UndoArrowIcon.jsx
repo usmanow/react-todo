@@ -5,6 +5,7 @@ const UndoArrowIcon = () => {
     <svg
       className={styles.undoIcon}
       viewBox="0 0 24 24"
+      aria-hidden="true"
     >
       <g
         fill="none"
