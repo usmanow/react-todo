@@ -17,6 +17,7 @@ const TaskItem = ({ task, onToggleTask, onDeleteTask, onEditTask }) => {
   const [editedText, setEditedText] = useState(task.text)
 
   const timeoutRef = useRef(null)
+  const inputRef = useRef(null)
 
   const date = new Date(task.createdAt)
   const datePart = date.toLocaleDateString('en-GB')
@@ -26,6 +27,32 @@ const TaskItem = ({ task, onToggleTask, onDeleteTask, onEditTask }) => {
   })
   const createdAt = `${datePart}, ${timePart}`
 
+  const handleToggle = () => {
+    setIsLocalCompleted((prev) => !prev)
+
+    timeoutRef.current = setTimeout(() => onToggleTask(task.id), 250)
+  }
+
+  const startEditing = () => {
+    setEditedText(task.text)
+    setIsEditing(true)
+  }
+
+  const confirmEdit = () => {
+    const trimmed = editedText.trim()
+
+    if (trimmed !== '') {
+      onEditTask(task.id, trimmed)
+    }
+
+    setIsEditing(false)
+  }
+
+  const cancelEdit = () => {
+    setEditedText(task.text)
+    setIsEditing(false)
+  }
+
   useEffect(() => {
     setIsLocalCompleted(task.completed)
   }, [task.completed])
@@ -34,31 +61,9 @@ const TaskItem = ({ task, onToggleTask, onDeleteTask, onEditTask }) => {
     return () => clearTimeout(timeoutRef.current)
   }, [])
 
-  const handleToggle = () => {
-    setIsLocalCompleted((prev) => !prev)
-
-    timeoutRef.current = setTimeout(() => onToggleTask(task.id), 250)
-  }
-
-  const handleStartEditing = () => {
-    setEditedText(task.text)
-    setIsEditing(true)
-  }
-
-  const handleConfirmEdit = () => {
-    const trimmedEditedText = editedText.trim()
-
-    if (trimmedEditedText !== '') {
-      onEditTask(task.id, trimmedEditedText)
-    }
-
-    setIsEditing(false)
-  }
-
-  const handleCancelEdit = () => {
-    setEditedText(task.text)
-    setIsEditing(false)
-  }
+  useEffect(() => {
+    if (isEditing && inputRef.current) inputRef.current.focus()
+  }, [isEditing])
 
   const motionProps = {
     layout: true,
@@ -74,7 +79,7 @@ const TaskItem = ({ task, onToggleTask, onDeleteTask, onEditTask }) => {
         <input
           className={cn(styles.checkbox, 'visually-hidden')}
           type="checkbox"
-          name="checkbox"
+          name={`task-${task.id}`}
           disabled={isEditing}
           checked={localCompleted}
           onChange={handleToggle}
@@ -93,19 +98,29 @@ const TaskItem = ({ task, onToggleTask, onDeleteTask, onEditTask }) => {
           {isEditing ? (
             <input
               className={styles.editInput}
+              ref={inputRef}
               type="text"
               maxLength={55}
               value={editedText}
-              name='editing'
-              autoFocus
+              name="editing"
+              aria-label="Task name"
               onChange={(e) => setEditedText(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  e.stopPropagation()
+                  confirmEdit()
+                }
+                if (e.key === 'Escape') {
+                  cancelEdit()
+                }
+              }}
             />
           ) : (
             <div className={cn(styles.taskText, localCompleted && styles.completed)}>
               {task.text}
             </div>
           )}
-          <time className={styles.time}>Added: {createdAt}</time>
+          <time className={styles.time} dateTime={date.toISOString()}>Added: {createdAt}</time>
         </div>
       </label>
 
@@ -115,7 +130,8 @@ const TaskItem = ({ task, onToggleTask, onDeleteTask, onEditTask }) => {
             <button
               className={styles.editButton}
               type="button"
-              onClick={handleStartEditing}
+              onClick={startEditing}
+              aria-label="Edit task"
             >
               <EditIcon />
             </button>
@@ -124,6 +140,7 @@ const TaskItem = ({ task, onToggleTask, onDeleteTask, onEditTask }) => {
               className={styles.deleteButton}
               type="button"
               onClick={() => onDeleteTask(task.id)}
+              aria-label="Delete task"
             >
               <DeleteIcon />
             </button>
@@ -133,7 +150,8 @@ const TaskItem = ({ task, onToggleTask, onDeleteTask, onEditTask }) => {
             <button
               className={styles.confirmButton}
               type="button"
-              onClick={handleConfirmEdit}
+              onClick={confirmEdit}
+              aria-label="Save changes"
             >
               <CheckmarkIcon className={styles.confirmIcon} />
             </button>
@@ -141,7 +159,8 @@ const TaskItem = ({ task, onToggleTask, onDeleteTask, onEditTask }) => {
             <button
               className={styles.cancelButton}
               type="button"
-              onClick={handleCancelEdit}
+              onClick={cancelEdit}
+              aria-label="Cancel editing"
             >
               <CloseIcon />
             </button>

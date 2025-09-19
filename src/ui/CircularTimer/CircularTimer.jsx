@@ -13,6 +13,11 @@ const CircularTimer = ({ timeLeft, totalTime, animationKey }) => {
       width={size}
       height={size}
       viewBox={`0 0 ${size} ${size}`}
+      role="progressbar"
+      aria-label={`Undo available for ${timeLeft} seconds`}
+      aria-valuemin={0}
+      aria-valuemax={totalTime}
+      aria-valuenow={timeLeft}
       style={{
         '--animation-duration': `${totalTime}s`,
         '--circumference': circumference

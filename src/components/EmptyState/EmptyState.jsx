@@ -5,7 +5,7 @@ import emptyImageDark from '../../assets/images/empty-dark.png'
 
 import styles from './EmptyState.module.scss'
 
-const EmptyState = ({ theme }) => {
+const EmptyState = ({ theme, message }) => {
   const imgSrc = theme === 'light' ? emptyImageLight : emptyImageDark
 
   const motionProps = {
@@ -17,20 +17,25 @@ const EmptyState = ({ theme }) => {
   }
 
   return (
-    <motion.div className={styles.wrapper} {...motionProps}>
+    <motion.figure
+      className={styles.wrapper}
+      role="status"
+      aria-live="polite"
+      {...motionProps}
+    >
       <motion.img
         className={styles.emptyImage}
         src={imgSrc}
         width="221"
         height="174"
-        alt="No tasks available"
+        alt=""
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 0.3 }}
+        transition={{ duration: 0.2 }}
       />
 
-      <span className={styles.emptyText}>No tasks yet</span>
-    </motion.div>
+      <figcaption className={styles.emptyText}>{message}</figcaption>
+    </motion.figure>
   )
 }
 

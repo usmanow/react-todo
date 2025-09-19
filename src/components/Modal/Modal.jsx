@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 
 import Input from '../../ui/Input/Input'
 import Button from '../../ui/Button/Button'
@@ -11,15 +11,47 @@ const Modal = ({ isOpen, onClose, onSubmit }) => {
   const [inputValue, setInputValue] = useState('')
   const [isRendered, setIsRendered] = useState(false)
   const [isVisible, setIsVisible] = useState(false)
+
+  const modalRef = useRef(null)
   const inputRef = useRef(null)
 
   const isInputEmpty = inputValue.trim() === ''
 
-  useEffect(() => {
-    if (isVisible) {
-      inputRef.current.focus()
+  const handleApply = (e) => {
+    e.preventDefault()
+
+    const taskText = inputValue.trim()
+    if (!taskText) return
+    onSubmit(taskText)
+    handleClose()
+  }
+
+  const handleClose = useCallback(() => {
+    setInputValue('')
+    onClose()
+  }, [onClose])
+
+  const handleFocusTrap = (e) => {
+    if (e.key !== 'Tab') return
+
+    const focusableElements = modalRef.current.querySelectorAll('input, button:not([disabled])')
+    if (!focusableElements.length) return
+
+    const first = focusableElements[0]
+    const last = focusableElements[focusableElements.length - 1]
+
+    if (e.shiftKey) {
+      if (document.activeElement === first) {
+        e.preventDefault()
+        last.focus()
+      }
+    } else {
+      if (document.activeElement === last) {
+        e.preventDefault()
+        first.focus()
+      }
     }
-  }, [isVisible])
+  }
 
   useEffect(() => {
     if (isOpen) {
@@ -36,20 +68,29 @@ const Modal = ({ isOpen, onClose, onSubmit }) => {
     }
   }, [isOpen, isRendered])
 
-  const handleApply = (e) => {
-    e.preventDefault()
+  useEffect(() => {
+    if (isVisible) {
+      inputRef.current.focus()
+    }
+  }, [isVisible])
 
-    const taskText = inputValue.trim()
-    if (!taskText) return
-    onSubmit(taskText)
-    setInputValue('')
-    onClose()
-  }
+  useEffect(() => {
+    if (!isRendered) return
 
-  const handleClose = () => {
-    setInputValue('')
-    onClose()
-  }
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        e.preventDefault()
+        handleClose()
+      }
+
+      if (e.key === 'Tab') {
+        handleFocusTrap(e)
+      }
+    }
+
+    document.addEventListener('keydown', handleKeyDown)
+    return () => document.removeEventListener('keydown', handleKeyDown)
+  }, [handleClose, isRendered])
 
   if (!isRendered) return null
 
@@ -57,20 +98,25 @@ const Modal = ({ isOpen, onClose, onSubmit }) => {
     <div
       className={cn(styles.overlay, isVisible && styles.visible)}
       onClick={handleClose}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modal-title"
     >
       <form
         className={cn(styles.modal, isVisible && styles.visible)}
+        ref={modalRef}
         onClick={(e) => e.stopPropagation()}
         onSubmit={handleApply}
       >
         <div className={styles.modalHeader}>
-          <h2 className={styles.modalTitle}>New Task</h2>
+          <h2 className={styles.modalTitle} id="modal-title">New Task</h2>
           <div className={styles.modalInputWrapper}>
+            <label className="visually-hidden" htmlFor="newTask">New Task</label>
             <Input
               ref={inputRef}
+              id="newTask"
               value={inputValue}
               maxLength={55}
-              name="newTask"
               onChange={setInputValue}
               placeholder="Input your task..."
               showSearchIcon={false}

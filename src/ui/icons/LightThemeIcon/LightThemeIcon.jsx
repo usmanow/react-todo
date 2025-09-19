@@ -6,6 +6,7 @@ const LightThemeIcon = () => {
       className={styles.lightThemeIcon}
       viewBox="0 0 22 22"
       fill="none"
+      aria-label="true"
     >
       <path
         fillRule="evenodd"

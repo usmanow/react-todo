@@ -6,6 +6,7 @@ const CloseIcon = () => {
       className={styles.closeIcon}
       viewBox="0 0 24 24"
       fill="none"
+      aria-hidden="true"
     >
     <line
       x1="6"

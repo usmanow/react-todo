@@ -1,4 +1,5 @@
 import { cn } from '../../../utils/utils'
+
 import styles from './CheckmarkIcon.module.scss'
 
 const CheckmarkIcon = ({ className }) => {
@@ -7,6 +8,7 @@ const CheckmarkIcon = ({ className }) => {
       className={cn(styles.checkmarkIcon, className)}
       viewBox="0 0 24 24"
       fill="none"
+      aria-hidden="true"
     >
       <path
         d="M5 13L9 17L19 7"

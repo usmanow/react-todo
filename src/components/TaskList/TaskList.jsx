@@ -6,8 +6,25 @@ import Button from '../../ui/Button/Button'
 
 import styles from './TaskList.module.scss'
 
-const TaskList = ({ tasks, totalTasks, onToggleTask, onDeleteTask, onEditTask, onDeleteTasks, theme }) => {
-  const isEmpty = tasks.length === 0
+const TaskList = ({
+  tasks,
+  totalTasks,
+  onToggleTask,
+  onDeleteTask,
+  onEditTask,
+  onDeleteTasks,
+  theme
+}) => {
+  const hasTasks = totalTasks > 0
+  const hasFilteredTasks = tasks.length > 0
+
+  let emptyMessage
+
+  if (!hasTasks) {
+    emptyMessage = 'No tasks yet'
+  } else if (!hasFilteredTasks) {
+    emptyMessage = 'No results found'
+  }
 
   const motionProps = {
     initial: { opacity: 0 },
@@ -20,29 +37,29 @@ const TaskList = ({ tasks, totalTasks, onToggleTask, onDeleteTask, onEditTask, o
     <div className={styles.taskListContainer}>
 
       <AnimatePresence>
-        {!isEmpty && (
-          <motion.div className={styles.taskHeader}
-            {...motionProps}
+        <motion.div className={styles.taskHeader}
+          {...motionProps}
+        >
+          <Button
+            onClick={onDeleteTasks}
+            className={styles.clearButton}
+            variant="clear"
+            disabled={!hasTasks}
           >
-            <Button
-              onClick={onDeleteTasks}
-              className={styles.clearButton}
-              variant="clear"
-            >
-              Clear All
-            </Button>
+            Clear All
+          </Button>
 
-            <span className={styles.taskQuantity}>Showing <span className={styles.tasksShown}>{tasks.length}</span> of {totalTasks}</span>
-          </motion.div>
-        )}
+          <span className={styles.taskQuantity}>Showing <span className={styles.tasksShown}>{tasks.length}</span> of {totalTasks}</span>
+        </motion.div>
       </AnimatePresence>
 
       <div className={styles.taskListBody}>
         <AnimatePresence mode="wait">
-          {isEmpty ? (
+          {!hasFilteredTasks ? (
             <EmptyState
               key="empty"
               theme={theme}
+              message={emptyMessage}
             />
           ) : (
             <motion.ul
