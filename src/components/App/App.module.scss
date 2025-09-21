@@ -1,7 +1,7 @@
 .container {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: 100dvh;
   max-width: 960px;
   margin-inline: auto;
   padding-block: clamp(20px, 10.00px + 3.13vw, 40px);
@@ -26,5 +26,4 @@
   max-width: 680px;
   width: 100%;
   margin-inline: auto;
-  padding-bottom: env(safe-area-inset-bottom, 16px);
 }
