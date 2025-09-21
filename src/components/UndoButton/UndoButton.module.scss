@@ -32,11 +32,9 @@
     }
   }
 
-  @media (hover: none) {
-    &:active {
-      background-color: var(--color-accent-dark);
-      border-color: var(--color-accent);
-    }
+  &:active {
+    background-color: var(--color-accent-dark);
+    border-color: var(--color-accent);
   }
 }
 

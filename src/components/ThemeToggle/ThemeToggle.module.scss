@@ -11,11 +11,6 @@
     background-color var(--transition),
     box-shadow var(--transition);
 
-  &:hover {
-    background-color: var(--color-accent-dark);
-    box-shadow: var(--shadow);
-  }
-
   @media (hover: hover) {
     &:hover {
       background-color: var(--color-accent-dark);
@@ -23,10 +18,8 @@
     }
   }
 
-  @media (hover: none) {
-    &:active {
-      background-color: var(--color-accent-dark);
-      box-shadow: var(--shadow);
-    }
+  &:active {
+    background-color: var(--color-accent-dark);
+    box-shadow: var(--shadow);
   }
 }

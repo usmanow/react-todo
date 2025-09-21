@@ -18,11 +18,9 @@
     }
   }
 
-  @media (hover: none) {
-    &:active {
-      border-color: var(--color-accent);
-      background-color: var(--color-accent-dark);
-    }
+  &:active {
+    border-color: var(--color-accent);
+    background-color: var(--color-accent-dark);
   }
 
   &::before,
