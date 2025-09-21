@@ -1,26 +1,30 @@
 .header {
   display: flex;
   flex-direction: column;
-  row-gap: 25px;
-  padding-top: 40px;
+  row-gap: clamp(15px, 10.00px + 1.56vw, 25px);
 }
 
-.headerInputWrapper {
-  max-width: 595px;
-  width: 100%;
+.title {
+  margin: 0;
+  font-size: clamp(20px, 17.00px + 0.94vw, 26px);
+  text-align: center;
+  text-transform: uppercase;
+  color: var(--color-text);
 }
 
 .controls {
   display: flex;
   align-items: center;
   justify-content: center;
-  column-gap: 16px;
+  gap: clamp(12px, 10.00px + 0.63vw, 16px);
+
+  @media (max-width: 576px) {
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
 }
 
-.title {
-  margin: 0;
-  font-size: 26px;
-  text-align: center;
-  text-transform: uppercase;
-  color: var(--color-text);
+.headerInputWrapper {
+  max-width: 595px;
+  width: 100%;
 }

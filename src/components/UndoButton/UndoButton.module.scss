@@ -2,11 +2,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  column-gap: 8px;
-  min-width: 123px;
-  height: 40px;
-  padding-inline: 6px;
-  font-size: 16px;
+  column-gap: clamp(4px, 2.00px + 0.63vw, 8px);
+  min-width: clamp(90px, 75.00px + 4.69vw, 120px);
+  height: clamp(32px, 28.00px + 1.25vw, 40px);
+  padding-inline: clamp(2px, 0.00px + 0.63vw, 6px);
+  font-size: clamp(12px, 10.00px + 0.63vw, 16px);
   font-weight: 400;
   text-transform: uppercase;
   color: var(--color-light);

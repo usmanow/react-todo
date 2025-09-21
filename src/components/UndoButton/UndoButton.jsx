@@ -12,7 +12,6 @@ const UndoButton = ({ isVisible, onUndo, timeLeft, totalTime, animationKey }) =>
       type="button"
       onClick={onUndo}
       aria-label="Undo last deleted task"
-      aria-hidden={!isVisible}
       tabIndex={isVisible ? 0 : -1}
     >
       <CircularTimer

@@ -4,8 +4,9 @@
   align-items: center;
   justify-content: space-between;
   column-gap: 25px;
-  padding: 15px 10px;
-  font-size: 18px;
+  padding-block: clamp(8px, 4.50px + 1.09vw, 15px);
+  padding-inline: clamp(6px, 4.00px + 0.63vw, 10px);
+  font-size: clamp(14px, 12.00px + 0.63vw, 18px);
 
   &::after {
     content: '';
@@ -46,8 +47,8 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  width: 26px;
-  height: 26px;
+  width: clamp(20px, 17.00px + 0.94vw, 26px);
+  height: clamp(20px, 17.00px + 0.94vw, 26px);
   border: var(--border);
   border-radius: 2px;
   background-color: var(--color-ui-bg);
@@ -99,7 +100,7 @@
 
 .time {
   font-family: 'Inter';
-  font-size: 12px;
+  font-size: clamp(10px, 9.00px + 0.31vw, 12px);
   font-weight: 400;
   color: var(--color-gray);
   user-select: none;
@@ -107,7 +108,7 @@
 
 .editInput {
   font-family: 'Inter';
-  font-size: 18px;
+  font-size: clamp(14px, 12.00px + 0.63vw, 18px);
   font-weight: 400;
   color: var(--color-text);
   background-color: var(--color-bg);
