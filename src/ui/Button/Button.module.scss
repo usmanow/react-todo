@@ -31,11 +31,9 @@
       }
     }
 
-    @media (hover: none) {
-      &:not(:disabled):active {
-        color: var(--color-accent);
-        background-color: var(--color-bg);
-      }
+    &:not(:disabled):active {
+      color: var(--color-accent);
+      background-color: var(--color-bg);
     }
   }
 
@@ -50,11 +48,9 @@
       }
     }
 
-    @media (hover: none) {
-      &:not(:disabled):active {
-        color: var(--color-light);
-        background-color: var(--color-accent);
-      }
+    &:not(:disabled):active {
+      color: var(--color-light);
+      background-color: var(--color-accent);
     }
   }
 
@@ -71,12 +67,10 @@
       }
     }
 
-    @media (hover: none) {
-      &:not(:disabled):active {
-        background-color: var(--color-accent-dark);
-        border-color: var(--color-accent);
-        box-shadow: var(--shadow);
-      }
+    &:not(:disabled):active {
+      background-color: var(--color-accent-dark);
+      border-color: var(--color-accent);
+      box-shadow: var(--shadow);
     }
   }
 }
