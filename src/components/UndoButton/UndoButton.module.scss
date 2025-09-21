@@ -1,0 +1,38 @@
+.undoButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  column-gap: clamp(4px, 2.00px + 0.63vw, 8px);
+  min-width: clamp(90px, 75.00px + 4.69vw, 120px);
+  height: clamp(32px, 28.00px + 1.25vw, 40px);
+  padding-inline: clamp(2px, 0.00px + 0.63vw, 6px);
+  font-size: clamp(12px, 10.00px + 0.63vw, 16px);
+  font-weight: 400;
+  text-transform: uppercase;
+  color: var(--color-light);
+  background-color: var(--color-accent);
+  border: 2px solid transparent;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+
+  opacity: 0;
+  transform: translateY(20px);
+  pointer-events: none;
+
+  transition:
+    background-color var(--transition),
+    border-color var(--transition),
+    opacity var(--transition),
+    transform var(--transition);
+
+  &:hover {
+    background-color: var(--color-accent-dark);
+    border-color: var(--color-accent);
+  }
+}
+
+.visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}

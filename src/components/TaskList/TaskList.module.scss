@@ -1,4 +1,32 @@
-.taskListWrapper {
+.taskListContainer {
+  display: flex;
+  flex-direction: column;
+  row-gap: clamp(10px, 7.00px + 0.94vw, 16px);
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+.taskHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(12px, 10px + 0.63vw, 16px);
+  font-family: 'Inter';
+  font-size: clamp(14px, 12.00px + 0.63vw, 18px);
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.tasksShown {
+ color: var(--color-accent);
+}
+
+.clearButton {
+  flex: 0 0 auto;
+  align-self: flex-start;
+}
+
+.taskListBody {
   flex: 1 1 auto;
   overflow-y: auto;
 }

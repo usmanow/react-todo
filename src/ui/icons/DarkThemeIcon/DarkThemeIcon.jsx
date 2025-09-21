@@ -4,7 +4,9 @@ const DarkThemeIcon = () => {
   return (
     <svg
       className={styles.darkThemeIcon}
-      viewBox="0 0 22 22" fill="none"
+      viewBox="0 0 22 22"
+      fill="none"
+      aria-hidden="true"
     >
       <path
         fillRule="evenodd"

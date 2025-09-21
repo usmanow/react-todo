@@ -6,12 +6,12 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 160px;
-  height: 40px;
-  padding: 10px;
-  font-size: 18px;
-  text-transform: uppercase;
+  width: clamp(120px, 100.00px + 6.25vw, 160px);
+  height: clamp(32px, 28.00px + 1.25vw, 40px);
+  padding: clamp(6px, 4.00px + 0.63vw, 10px);
+  font-size: clamp(14px, 12.00px + 0.63vw, 18px);
   color: var(--color-light);
+  text-transform: uppercase;
   border: 2px solid transparent;
   background-color: var(--color-accent);
   border-radius: var(--border-radius);
@@ -20,22 +20,22 @@
     border-color var(--transition),
     background-color var(--transition);
 
-  &.open {
+  &--open {
     border-color: var(--color-accent);
     background-color: var(--color-accent-dark);
   }
 
-  svg {
-    transition: transform var(--transition);
-  }
-
-  &.open svg {
+  &--open .dropdownIcon {
     transform: rotate(180deg);
   }
 
   &:hover {
     box-shadow: var(--shadow);
   }
+}
+
+.dropdownIcon {
+  transition: transform var(--transition);
 }
 
 .optionList {
@@ -45,20 +45,23 @@
   flex-direction: column;
   width: 100%;
   margin: 0;
-  padding: 6px 0;
-  font-size: 18px;
+  padding: clamp(4px, 3.00px + 0.31vw, 6px) 0;
+  font-size: clamp(14px, 12.00px + 0.63vw, 18px);
   font-weight: 400;
   color: var(--color-accent);
   border: var(--border);
   border-radius: var(--border-radius);
+  background-color: var(--color-light);
   box-shadow: var(--shadow);
   list-style: none;
+  z-index: 2;
 }
 
 .optionItem {
-  padding: 6px 6px;
+  padding: clamp(4px, 3.00px + 0.31vw, 6px) clamp(4px, 3.00px + 0.31vw, 6px);
   background-color: transparent;
   transition: background-color var(--transition);
+  text-transform: capitalize;
   cursor: pointer;
 
   &:hover {
@@ -71,5 +74,9 @@
     &:hover {
       background-color: var(--color-accent-hover);
     }
+  }
+
+  &.active {
+    background-color: var(--color-accent-hover);
   }
 }

@@ -1,21 +1,45 @@
 .taskItem {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
   column-gap: 25px;
-  padding: 15px 10px;
-  font-size: 18px;
-  border-bottom: var(--border);
+  padding-block: clamp(8px, 4.50px + 1.09vw, 15px);
+  padding-inline: clamp(6px, 4.00px + 0.63vw, 10px);
+  font-size: clamp(14px, 12.00px + 0.63vw, 18px);
 
-  &:last-child {
-    border-bottom: none;
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 1px;
+    background-color: var(--border-task);
+  }
+
+  &:last-child::after {
+    content: none;
   }
 }
 
-.taskContent {
+.taskLabel {
   display: flex;
   align-items: center;
+  flex: 1;
   column-gap: 20px;
+  min-width: 0;
+  cursor: pointer;
+
+  &.editing {
+    cursor: default;
+  }
+}
+
+.checkbox:focus-visible + .customCheckbox {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
 }
 
 .customCheckbox {
@@ -23,17 +47,71 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  width: 26px;
-  height: 26px;
+  width: clamp(20px, 17.00px + 0.94vw, 26px);
+  height: clamp(20px, 17.00px + 0.94vw, 26px);
   border: var(--border);
   border-radius: 2px;
+  background-color: var(--color-ui-bg);
+  transition: background-color var(--transition);
   cursor: pointer;
+
+  &.checkedCheckbox {
+    background-color: var(--color-accent);
+
+    .checkmarkIcon {
+      opacity: 1;
+    }
+  }
+
+  &.disabledCheckbox {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+}
+
+.checkmarkIcon {
+  opacity: 0;
+  transition: opacity var(--transition);
+}
+
+.taskContainer {
+  display: flex;
+  flex-direction: column;
+  row-gap: 5px;
+  flex: 1 1 auto;
+  min-width: 0;
 }
 
 .taskText {
-  overflow-wrap: break-word;
-  cursor: pointer;
+  font-family: 'Inter';
+  font-weight: 400;
+  color: var(--color-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   user-select: none;
+
+  &.completed {
+    text-decoration: line-through;
+    text-decoration-thickness: 2px;
+    color: var(--color-strikethrough);
+  }
+}
+
+.time {
+  font-family: 'Inter';
+  font-size: clamp(10px, 9.00px + 0.31vw, 12px);
+  font-weight: 400;
+  color: var(--color-gray);
+  user-select: none;
+}
+
+.editInput {
+  font-family: 'Inter';
+  font-size: clamp(14px, 12.00px + 0.63vw, 18px);
+  font-weight: 400;
+  color: var(--color-text);
+  background-color: var(--color-bg);
 }
 
 .taskControls {
@@ -42,10 +120,17 @@
   column-gap: 10px;
 }
 
-.editButton, .deleteButton {
+.editButton,
+.deleteButton,
+.confirmButton,
+.cancelButton {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 24px;
   height: 24px;
+}
+
+.confirmIcon {
+  color: var(--color-accent);
 }

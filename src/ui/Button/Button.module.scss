@@ -1,31 +1,54 @@
 .button {
-  width: 97px;
-  height: 40px;
-  font-size: 18px;
-  font-weight: 500;
-  color: var(--color-light-theme);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-inline: clamp(10px, 5.00px + 1.56vw, 20px);
+  min-width: clamp(80px, 65.00px + 4.69vw, 110px);
+  height: clamp(32px, 28.00px + 1.25vw, 40px);
+  font-size: clamp(14px, 12.00px + 0.63vw, 18px);
   text-transform: uppercase;
-  background-color: var(--color-accent);
   border-radius: var(--border-radius);
   border: var(--border);
   transition:
     color var(--transition),
     background-color var(--transition),
-    border var(--transition);
+    border var(--transition),
+    box-shadow var(--transition);
 
-  &:hover {
-    color: var(--color-accent);
-    background-color: var(--color-light-theme);
-    border: var(--border);
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
   }
-}
 
-.buttonCancel {
-  color: var(--color-accent);
-  background-color: var(--color-light-theme);
-
-  &:hover {
-    color: var(--color-light-theme);
+  &--apply {
+    color: var(--color-light);
     background-color: var(--color-accent);
+
+    &:not(:disabled):hover {
+      color: var(--color-accent);
+      background-color: var(--color-bg);
+    }
+  }
+
+  &--cancel {
+    color: var(--color-accent);
+    background-color: var(--color-bg);
+
+    &:not(:disabled):hover {
+      color: var(--color-light);
+      background-color: var(--color-accent);
+    }
+  }
+
+  &--clear {
+    border: 2px solid transparent;
+    color: var(--color-light);
+    background-color: var(--color-accent);
+
+    &:not(:disabled):hover {
+      background-color: var(--color-accent-dark);
+      border-color: var(--color-accent);
+      box-shadow: var(--shadow);
+    }
   }
 }

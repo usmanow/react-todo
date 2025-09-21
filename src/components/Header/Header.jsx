@@ -9,29 +9,37 @@ const Header = ({
   onSearchChange,
   filterValue,
   onFilterChange,
-  filterOptions
+  filterOptions,
+  theme,
+  onToggleTheme
 }) => {
   return (
     <header className={styles.header}>
       <h1 className={styles.title}>Todo List</h1>
       <div className={styles.controls}>
         <div className={styles.headerInputWrapper}>
+          <label className="visually-hidden" htmlFor="search">Search tasks</label>
           <Input
             value={searchValue}
-            name="search"
+            id="search"
             onChange={onSearchChange}
             placeholder="Search task..."
             showSearchIcon={true}
           />
         </div>
 
+        <label className="visually-hidden" htmlFor="filter">Filter tasks</label>
         <Select
+          id="filter"
           options={filterOptions}
           selected={filterValue}
           onChange={onFilterChange}
         />
 
-        <ThemeToggle />
+        <ThemeToggle
+          theme={theme}
+          onToggleTheme={onToggleTheme}
+        />
       </div>
     </header>
   )

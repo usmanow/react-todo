@@ -1,5 +1,5 @@
 .undoIcon {
-  width: 15px;
-  height: 14px;
-  color: var(--color-light-theme);
+  width: clamp(12px, 8.00px + 1.25vw, 20px);
+  height: auto;
+  color: var(--color-light);
 }

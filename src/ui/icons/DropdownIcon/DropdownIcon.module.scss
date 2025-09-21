@@ -1,5 +1,5 @@
 .dropdownIcon {
-  width: 15px;
-  height: 15px;
+  width: clamp(14px, 12.00px + 0.63vw, 18px);
+  height: auto;
   color: var(--color-light);
 }

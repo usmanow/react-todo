@@ -1,12 +1,12 @@
 .overlay {
   position: fixed;
-  top: 0;
-  left: 0;
+  inset: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
   height: 100%;
+  padding-inline: clamp(10px, 7.50px + 0.78vw, 15px);
   background-color: rgba(0, 0, 0, 0);
   opacity: 0;
   pointer-events: none;
@@ -25,36 +25,37 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  row-gap: 35px;
+  row-gap: clamp(35px, 5.00px + 9.38vw, 95px);
   max-width: 500px;
   width: 100%;
-  padding: 18px 30px;
-  background-color: var(--color-light-theme);
-  border-radius: 16px;
+  padding-block: clamp(10px, 6.00px + 1.25vw, 18px);
+  padding-inline: clamp(15px, 7.50px + 2.34vw, 30px);
+  background-color: var(--color-bg);
+  border-radius: clamp(8px, 4.00px + 1.25vw, 16px);
   opacity: 0;
   transform: translateY(-20px);
   transition:
     opacity var(--transition),
     transform var(--transition);
 
-    &.visible  {
-      opacity: 1;
-      transform: translateY(0);
-    }
+  &.visible  {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .modalHeader {
   display: flex;
   flex-direction: column;
   align-items: center;
-  row-gap: 25px;
+  row-gap: clamp(15px, 10.00px + 1.56vw, 25px);
   width: 100%;
-  margin-bottom: 90px;
 }
 
 .modalTitle {
   margin: 0;
-  font-size: 24px;
+  font-size: clamp(18px, 15.00px + 0.94vw, 24px);
+  color: var(--color-text);
   text-transform: uppercase;
 }
 
