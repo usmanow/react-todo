@@ -11,9 +11,18 @@
     border-color var(--transition),
     background-color var(--transition);
 
-  &:hover {
-    border-color: var(--color-accent);
-    background-color: var(--color-accent-dark);
+  @media (hover: hover) {
+    &:hover {
+      border-color: var(--color-accent);
+      background-color: var(--color-accent-dark);
+    }
+  }
+
+  @media (hover: none) {
+    &:active {
+      border-color: var(--color-accent);
+      background-color: var(--color-accent-dark);
+    }
   }
 
   &::before,

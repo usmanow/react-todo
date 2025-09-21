@@ -25,9 +25,18 @@
     opacity var(--transition),
     transform var(--transition);
 
-  &:hover {
-    background-color: var(--color-accent-dark);
-    border-color: var(--color-accent);
+  @media (hover: hover) {
+    &:hover {
+      background-color: var(--color-accent-dark);
+      border-color: var(--color-accent);
+    }
+  }
+
+  @media (hover: none) {
+    &:active {
+      background-color: var(--color-accent-dark);
+      border-color: var(--color-accent);
+    }
   }
 }
 
