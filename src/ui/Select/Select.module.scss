@@ -28,10 +28,6 @@
   &--open .dropdownIcon {
     transform: rotate(180deg);
   }
-
-  &:hover {
-    box-shadow: var(--shadow);
-  }
 }
 
 .dropdownIcon {
@@ -64,15 +60,27 @@
   text-transform: capitalize;
   cursor: pointer;
 
-  &:hover {
+  &:active {
     background-color: var(--color-accent-hover);
+  }
+
+  @media (hover: hover) {
+    &:hover {
+      background-color: var(--color-accent-hover);
+    }
   }
 
   &.selected {
     background-color: var(--color-accent-selected);
 
-    &:hover {
+    &:active {
       background-color: var(--color-accent-hover);
+    }
+
+    @media (hover: hover) {
+      &:hover {
+        background-color: var(--color-accent-hover);
+      }
     }
   }
 
