@@ -26,4 +26,5 @@
   max-width: 680px;
   width: 100%;
   margin-inline: auto;
+  padding-bottom: env(safe-area-inset-bottom, 16px);
 }

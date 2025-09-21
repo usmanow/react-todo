@@ -4,7 +4,15 @@
   color: var(--color-gray);
   transition: var(--transition);
 
-  &:hover {
-    color: var(--color-accent);
+  @media (hover: hover) {
+    &:hover {
+      color: var(--color-accent);
+    }
+  }
+
+  @media (hover: none) {
+    &:active {
+      color: var(--color-accent);
+    }
   }
 }
