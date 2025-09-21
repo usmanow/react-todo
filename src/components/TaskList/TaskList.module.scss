@@ -1,18 +1,18 @@
 .taskListContainer {
   display: flex;
   flex-direction: column;
-  row-gap: 10px;
+  row-gap: clamp(10px, 7.00px + 0.94vw, 16px);
   flex: 1 1 auto;
   min-height: 0;
-  padding-inline: 10px;
 }
 
 .taskHeader {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: clamp(12px, 10px + 0.63vw, 16px);
   font-family: 'Inter';
-  font-size: 18px;
+  font-size: clamp(14px, 12.00px + 0.63vw, 18px);
   font-weight: 500;
   color: var(--color-text);
 }

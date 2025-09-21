@@ -1,8 +1,10 @@
 .timer {
+  width: clamp(20px, 16.00px + 1.25vw, 28px);
+  height: auto;
   color: var(--color-light);
 
   text {
-    font-size: 16px;
+    font-size: clamp(14px, 13.00px + 0.31vw, 16px);
     font-weight: 400;
     fill: currentColor;
   }

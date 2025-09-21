@@ -2,10 +2,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding-inline: 20px;
-  min-width: 110px;
-  height: 40px;
-  font-size: 18px;
+  padding-inline: clamp(10px, 5.00px + 1.56vw, 20px);
+  min-width: clamp(80px, 65.00px + 4.69vw, 110px);
+  height: clamp(32px, 28.00px + 1.25vw, 40px);
+  font-size: clamp(14px, 12.00px + 0.63vw, 18px);
   text-transform: uppercase;
   border-radius: var(--border-radius);
   border: var(--border);

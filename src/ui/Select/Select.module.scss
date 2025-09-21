@@ -6,10 +6,10 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 160px;
-  height: 40px;
-  padding: 10px;
-  font-size: 18px;
+  width: clamp(120px, 100.00px + 6.25vw, 160px);
+  height: clamp(32px, 28.00px + 1.25vw, 40px);
+  padding: clamp(6px, 4.00px + 0.63vw, 10px);
+  font-size: clamp(14px, 12.00px + 0.63vw, 18px);
   color: var(--color-light);
   text-transform: uppercase;
   border: 2px solid transparent;
@@ -45,8 +45,8 @@
   flex-direction: column;
   width: 100%;
   margin: 0;
-  padding: 6px 0;
-  font-size: 18px;
+  padding: clamp(4px, 3.00px + 0.31vw, 6px) 0;
+  font-size: clamp(14px, 12.00px + 0.63vw, 18px);
   font-weight: 400;
   color: var(--color-accent);
   border: var(--border);
@@ -58,7 +58,7 @@
 }
 
 .optionItem {
-  padding: 6px 6px;
+  padding: clamp(4px, 3.00px + 0.31vw, 6px) clamp(4px, 3.00px + 0.31vw, 6px);
   background-color: transparent;
   transition: background-color var(--transition);
   text-transform: capitalize;
