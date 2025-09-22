@@ -1,12 +1,25 @@
-# React + Vite
+Todo List — веб-приложение для управления задачами, разработанное с использованием React и Vite с применением функциональных компонентов и хуков.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Описание:
+Приложение позволяет создавать задачи с указанием даты и времени их создания, отмечать как выполненные, а также редактировать и удалять. Реализованы фильтрация и поиск задач, а также возможность отмены удаления последних элементов.
 
-Currently, two official plugins are available:
+Особенности:
+Адаптивный интерфейс
+Фильтрация по статусу и поиск по тексту задачи
+Отмена последнего удаления с возможностью поочередного восстановления нескольких удалённых задач
+Поддержка светлой и тёмной темы интерфейса
+Плавная анимация при изменении списка задач
+Клавиатурные шорткаты: Enter для открытия модалки, Ctrl/Cmd+Z для отмены удаления
+Сохранение задач, их статуса и выбранной темы между сессиями
+Поддержка клавиатурной навигации и базовой доступности
+Поддержка PWA с офлайн-доступом и возможностью установки на устройство
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Технологии:
+React
+Vite
+SCSS-модули
+Framer Motion
+uuid для идентификации задач
+LocalStorage
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Ссылка: https://react-vite-project-todo-list.vercel.app/
