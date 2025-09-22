@@ -3,7 +3,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  column-gap: 25px;
+  column-gap: clamp(10px, 2.50px + 2.34vw, 25px);
   padding-block: clamp(8px, 4.50px + 1.09vw, 15px);
   padding-inline: clamp(6px, 4.00px + 0.63vw, 10px);
   font-size: clamp(14px, 12.00px + 0.63vw, 18px);
@@ -28,7 +28,7 @@
   display: flex;
   align-items: center;
   flex: 1;
-  column-gap: 20px;
+  column-gap: clamp(10px, 5.00px + 1.56vw, 20px);
   min-width: 0;
   cursor: pointer;
 
