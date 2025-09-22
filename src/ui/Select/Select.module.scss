@@ -60,12 +60,14 @@
   text-transform: capitalize;
   cursor: pointer;
 
-  &:active {
-    background-color: var(--color-accent-hover);
-  }
-
   @media (hover: hover) {
     &:hover {
+      background-color: var(--color-accent-hover);
+    }
+  }
+
+  @media (hover: none) {
+    &:active {
       background-color: var(--color-accent-hover);
     }
   }
@@ -73,8 +75,16 @@
   &.selected {
     background-color: var(--color-accent-selected);
 
-    &:active {
-      background-color: var(--color-accent-hover);
+    @media (hover: hover) {
+      &:hover {
+        background-color: var(--color-accent-hover);
+      }
+    }
+
+    @media (hover: none) {
+      &:active {
+        background-color: var(--color-accent-hover);
+      }
     }
 
     @media (hover: hover) {
