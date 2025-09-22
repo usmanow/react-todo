@@ -11,13 +11,17 @@
     border-color var(--transition),
     background-color var(--transition);
 
-  &:active {
-    border-color: var(--color-accent);
-    background-color: var(--color-accent-dark);
-  }
+  -webkit-tap-highlight-color: transparent;
 
   @media (hover: hover) {
     &:hover {
+      border-color: var(--color-accent);
+      background-color: var(--color-accent-dark);
+    }
+  }
+
+  @media (hover: none) {
+    &:active {
       border-color: var(--color-accent);
       background-color: var(--color-accent-dark);
     }
