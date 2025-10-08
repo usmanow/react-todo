@@ -1,5 +1,5 @@
-import DarkThemeIcon from '../../ui/icons/DarkThemeIcon/DarkThemeIcon'
-import LightThemeIcon from '../../ui/icons/LightThemeIcon/LightThemeIcon'
+import DarkThemeIcon from '@/icons/DarkThemeIcon/DarkThemeIcon'
+import LightThemeIcon from '@/icons/LightThemeIcon/LightThemeIcon'
 
 import styles from './ThemeToggle.module.scss'
 

@@ -1,8 +1,8 @@
 import { AnimatePresence, motion } from 'framer-motion'
 
-import TaskItem from '../TaskItem/TaskItem'
-import EmptyState from '../EmptyState/EmptyState'
-import Button from '../../ui/Button/Button'
+import TaskItem from '@/components/TaskItem/TaskItem'
+import EmptyState from '@/components/EmptyState/EmptyState'
+import Button from '@/components/Button/Button'
 
 import styles from './TaskList.module.scss'
 

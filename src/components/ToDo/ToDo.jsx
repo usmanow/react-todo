@@ -2,23 +2,23 @@ import { v4 as uuidv4 } from 'uuid'
 
 import { useEffect, useRef, useState } from 'react'
 
-import { useDebounce } from '../../hooks/useDebounce'
-import { useFocusVisible } from '../../hooks/useFocusVisible'
-import { useModalShortcut } from '../../hooks/useModalShortcut'
-import { useUndoShortcut } from '../../hooks/useUndoShortcut'
+import { useDebounce } from '@/hooks/useDebounce'
+import { useFocusVisible } from '@/hooks/useFocusVisible'
+import { useModalShortcut } from '@/hooks/useModalShortcut'
+import { useUndoShortcut } from '@/hooks/useUndoShortcut'
 
-import Header from '../Header/Header'
-import Modal from '../Modal/Modal'
-import OpenModalButton from '../../ui/OpenModalButton/OpenModalButton'
-import UndoButton from '../UndoButton/UndoButton'
-import TaskList from '../TaskList/TaskList'
+import Header from '@/components/Header/Header'
+import Modal from '@/components/Modal/Modal'
+import OpenModalButton from '@/components/OpenModalButton/OpenModalButton'
+import UndoButton from '@/components/UndoButton/UndoButton'
+import TaskList from '@/components/TaskList/TaskList'
 
-import { filterAndSearchTasks } from '../../utils/utils'
-import { filterOptions, UNDO_TIME } from '../../constants/constants'
+import { filterAndSearchTasks } from '@/utils/utils'
+import { filterOptions, UNDO_TIME } from '@/constants/constants'
 
-import styles from './App.module.scss'
+import styles from './ToDo.module.scss'
 
-const App = () => {
+const ToDo = () => {
   const [tasks, setTasks] = useState(() => JSON.parse(localStorage.getItem('tasks')) || [])
   const [deletedTasksStack, setDeletedTasksStack] = useState([])
   const [undoTimeLeft, setUndoTimeLeft] = useState(UNDO_TIME)
@@ -212,4 +212,4 @@ const App = () => {
   )
 }
 
-export default App
+export default ToDo

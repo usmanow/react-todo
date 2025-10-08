@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion'
 
-import emptyImageLight from '../../assets/images/empty-light.png'
-import emptyImageDark from '../../assets/images/empty-dark.png'
+import emptyImageLight from '@/assets/images/empty-light.png'
+import emptyImageDark from '@/assets/images/empty-dark.png'
 
 import styles from './EmptyState.module.scss'
 

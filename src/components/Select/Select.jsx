@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 
-import DropdownIcon from '../icons/DropdownIcon/DropdownIcon'
+import DropdownIcon from '@/icons/DropdownIcon/DropdownIcon'
 
-import { cn } from '../../utils/utils'
+import { cn } from '@/utils/utils'
 
 import styles from './Select.module.scss'
 

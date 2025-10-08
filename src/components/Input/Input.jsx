@@ -1,8 +1,8 @@
 import { forwardRef, useImperativeHandle, useRef } from 'react'
 
-import SearchIcon from '../icons/SearchIcon/SearchIcon'
+import SearchIcon from '@/icons/SearchIcon/SearchIcon'
 
-import { cn } from '../../utils/utils'
+import { cn } from '@/utils/utils'
 
 import styles from './Input.module.scss'
 

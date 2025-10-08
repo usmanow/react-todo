@@ -1,6 +1,6 @@
-import Input from '../../ui/Input/Input'
-import Select from '../../ui/Select/Select'
-import ThemeToggle from '../ThemeToggle/ThemeToggle'
+import Input from '@/components/Input/Input'
+import Select from '@/components/Select/Select'
+import ThemeToggle from '@/components/ThemeToggle/ThemeToggle'
 
 import styles from './Header.module.scss'
 
