@@ -1,4 +1,4 @@
-import { FILTERS } from "../constants/constants"
+import { FILTERS } from '@/constants/constants'
 
 export const cn = (...classes) => classes.filter(Boolean).join(' ')
 

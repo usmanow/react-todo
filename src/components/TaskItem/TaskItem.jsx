@@ -2,12 +2,12 @@ import { motion } from 'framer-motion'
 
 import { useEffect, useRef, useState } from 'react'
 
-import EditIcon from '../../ui/icons/EditIcon/EditIcon'
-import DeleteIcon from '../../ui/icons/DeleteIcon/DeleteIcon'
-import CheckmarkIcon from '../../ui/icons/CheckmarkIcon/CheckmarkIcon'
-import CloseIcon from '../../ui/icons/CloseIcon/CloseIcon'
+import EditIcon from '@/icons/EditIcon/EditIcon'
+import DeleteIcon from '@/icons/DeleteIcon/DeleteIcon'
+import CheckmarkIcon from '@/icons/CheckmarkIcon/CheckmarkIcon'
+import CloseIcon from '@/icons/CloseIcon/CloseIcon'
 
-import { cn } from '../../utils/utils'
+import { cn } from '@/utils/utils'
 
 import styles from './TaskItem.module.scss'
 

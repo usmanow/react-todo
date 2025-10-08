@@ -1,4 +1,4 @@
-import { cn } from '../../../utils/utils'
+import { cn } from '@/utils/utils'
 import styles from './DropdownIcon.module.scss'
 
 const DropdownIcon = ({ className }) => {

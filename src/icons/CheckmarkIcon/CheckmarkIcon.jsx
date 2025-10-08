@@ -1,4 +1,4 @@
-import { cn } from '../../../utils/utils'
+import { cn } from '@/utils/utils'
 
 import styles from './CheckmarkIcon.module.scss'
 

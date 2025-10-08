@@ -1,7 +1,7 @@
-import CircularTimer from '../../ui/CircularTimer/CircularTimer'
-import UndoArrowIcon from '../../ui/icons/UndoArrowIcon/UndoArrowIcon'
+import CircularTimer from '@/components/CircularTimer/CircularTimer'
+import UndoArrowIcon from '@/icons/UndoArrowIcon/UndoArrowIcon'
 
-import { cn } from '../../utils/utils'
+import { cn } from '@/utils/utils'
 
 import styles from './UndoButton.module.scss'
 

@@ -1,4 +1,5 @@
 import { forwardRef } from 'react'
+
 import styles from './OpenModalButton.module.scss'
 
 const OpenModalButton  = forwardRef(({ onClick}, ref) => {

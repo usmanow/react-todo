@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 
-import Input from '../../ui/Input/Input'
-import Button from '../../ui/Button/Button'
+import Input from '@/components/Input/Input'
+import Button from '@/components/Button/Button'
 
-import { cn } from '../../utils/utils'
+import { cn } from '@/utils/utils'
 
 import styles from './Modal.module.scss'
 

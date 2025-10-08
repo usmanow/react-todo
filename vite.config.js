@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import { fileURLToPath, URL } from 'url'
 import { VitePWA } from 'vite-plugin-pwa'
 
 export default defineConfig({
@@ -20,5 +21,10 @@ export default defineConfig({
         ]
       }
     })
-  ]
+  ],
+  resolve: {
+    alias: {
+      '@': fileURLToPath(new URL('./src', import.meta.url))
+    }
+  }
 })
